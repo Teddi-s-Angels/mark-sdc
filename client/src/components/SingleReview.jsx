@@ -10,6 +10,7 @@ class SingleReview extends React.Component {
     this.state = {
       reviewId: props.review.review_id,
       body: props.review.body, 
+      bodyPreview: props.review.body.slice(0, 250),
       date: props.review.date.slice(0, 10), 
       helpfulness: props.review.helpfulness,
       photos: props.review.photos,
@@ -20,12 +21,21 @@ class SingleReview extends React.Component {
       reviewerName: props.review.reviewer_name,
       summary: props.review.summary,
       isHelpful: 0,
+      readMore: false,
     }
     this.handleClick = this.handleClick.bind(this);
+    this.showMore = this.showMore.bind(this);
   }
 
   componentDidMount() {
     this.formatDate();
+    if(this.state.body.length < 250) {
+      this.setState({readMore: true})
+    }
+  }
+
+  showMore() {
+    this.setState({readMore: true})
   }
 
   handleClick() {
@@ -92,7 +102,7 @@ class SingleReview extends React.Component {
           <Col id='summary'><p>{this.state.summary}</p></Col>
         </Row>
         <Row>
-          <Col id='body'><p>{this.state.body}</p></Col>
+          <Col id='body'><p>{this.state.readMore ? this.state.body : this.state.bodyPreview} <a id='readMore' onClick={this.showMore}><b>{this.state.readMore ? '' : 'Read More...'}</b></a></p></Col>
         </Row>
         <Row>
           <Col id='didRecommend'>{recommend}</Col>

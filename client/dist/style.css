@@ -111,3 +111,12 @@
   color: black;
   border: none;
 }
+
+#dropdown-item-button:focus {
+  outline: 0 !important;
+  box-shadow: none;
+}
+
+#readMore {
+  cursor: pointer;
+}
