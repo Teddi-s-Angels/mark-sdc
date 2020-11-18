@@ -1,8 +1,8 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import ReactDOM from 'react-dom';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import StarRating from './StarRating.jsx';
 import Parse from '../Parse.js';
-import { Checkmark } from 'react-checkmark';
 
 class SingleReview extends React.Component {
   constructor(props) {
@@ -87,6 +87,12 @@ class SingleReview extends React.Component {
     } else {
       recommend = '';
     }
+    let photos;
+    if(this.state.photos.length > 0) {
+      photos = <div><p>{this.state.photos[0] ? 'Photos: ' : ''}</p><Image src={this.state.photos[0].url} thumbnail /></div>
+    } else {
+      photos='';
+    }
     return (
       <Container id='review' fluid>
         <Row>
@@ -102,13 +108,18 @@ class SingleReview extends React.Component {
           <Col id='summary'><p>{this.state.summary}</p></Col>
         </Row>
         <Row>
-          <Col id='body'><p>{this.state.readMore ? this.state.body : this.state.bodyPreview} <a id='readMore' onClick={this.showMore}><b>{this.state.readMore ? '' : 'Read More...'}</b></a></p></Col>
+          <Col id='body'><p>{this.state.readMore ? this.state.body : this.state.bodyPreview} <a id='readMore' onClick={this.showMore}><b>{this.state.readMore ? '' : '... Read More'}</b></a></p></Col>
         </Row>
         <Row>
           <Col id='didRecommend'>{recommend}</Col>
         </Row>
         <Row>
           <Col><p>{this.state.response}</p></Col>
+        </Row>
+        <Row id='reviewPhoto'>
+          <Col xs={6} md={4} id='reviewThumbnailPhoto'>
+            {photos}
+          </Col>
         </Row>
         <Row>
         <Col><p> Helpful? &nbsp;<a href='#' className='helpful' onClick={this.handleClick}>Yes</a> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;   <u>Report</u></p></Col>
