@@ -1,0 +1,113 @@
+#summary {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+#review {
+  margin: 5px;
+  border-bottom: 2px solid lightgray;
+}
+
+#body {
+  font-size: 20px;
+}
+
+.didRecommend {
+  font-size: 15px;
+}
+
+#date {
+  font-size: 12px;
+  align-content: right;
+  text-align: right;
+  padding-top: 5px;
+}
+
+#nf-number {
+  font-size: 60px;
+  text-align: center;
+  font-weight: bolder;
+  padding-right: 20px;
+}
+
+#nf-stars {
+  padding-left: 10px;
+  padding-top: 13px;
+  align-items: left;
+  align-content: left;
+}
+
+#reviewPanelStars {
+  padding-top: 12px;
+}
+
+.helpful {
+  color: black;
+  text-decoration: underline;
+}
+
+#addReviewForm {
+  padding: 15px;
+  border: 3px solid black
+}
+
+#reviewFormTitle {
+  font-size: 30px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+#reviewButton {
+  padding: 10px;
+  background-color: white;
+  color: slategray;
+  font-size: 20px;
+  border: 1px solid black;
+}
+
+#formQuestions {
+  font-weight: bold;
+}
+
+#characteristics {
+  font-size: 10px;
+  text-align: center;
+}
+
+#characteristicsTitle {
+  font-size: 13px;
+  padding-top: 10px;
+}
+
+#customRating {
+  display: none;
+}
+
+.customStar {
+  cursor: pointer;
+  transition: color 200ms;
+}
+
+#charCount {
+  text-align: right;
+}
+
+.error {
+  border: 3px solid red;
+}
+
+#emailError {
+  font-size: 10px;
+  color: darkred;
+  text-align: right;
+}
+
+#requiredField {
+  text-align: right;
+}
+
+#dropdown-item-button {
+  background-color: white;
+  color: black;
+  border: none;
+}

@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component renders single review 1`] = `
+<div
+  className="container-fluid"
+  id="review"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col"
+    />
+    <div
+      className="col"
+      id="date"
+    >
+       - 
+      2020-05-21
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col"
+      id="summary"
+    >
+      AMAZING VALUE - Fantastic picture, perfect viewing angles!
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col"
+      id="body"
+    >
+      I've had this monitor for about 2 months (purchased on Cyber Monday) and I'm still as in love with it as I was on day 1. I primarily use it for video editing with Adobe Premiere and other Adobe software. Although I often edit 4K content I have no problem with this monitor not actually being 4K.
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col"
+    >
+      Recommend Product
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col"
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col"
+    >
+      Helpful
+    </div>
+    <div
+      className="col"
+    >
+      Report
+    </div>
+    <div
+      className="col"
+    />
+    <div
+      className="col"
+    />
+  </div>
+</div>
+`;
