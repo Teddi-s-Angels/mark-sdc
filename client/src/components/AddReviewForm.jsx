@@ -2,6 +2,7 @@ import React from 'react';
 import Parse from '../Parse.js'
 import { Col, Button, Form } from 'react-bootstrap'
 import CustomStarRating from './CustomStarRating.jsx'
+import ShowStarRating from './ShowStarRating.jsx'
 
 class AddReviewForm extends React.Component {
   constructor() {
@@ -154,7 +155,7 @@ class AddReviewForm extends React.Component {
   handleStarClick(stars) {
     // console.log(event.target)
     // let stars = event.target.value
-    console.log(stars)
+    console.log('stars'+ stars)
     this.setState({stars: stars})
     console.log(this.state.stars)
   }
@@ -207,7 +208,7 @@ class AddReviewForm extends React.Component {
           <Form.Group>
             <Form.Label className={this.state.starsError ? 'error' : ''} id='formQuestions'>What is your overall rating of this product?*&nbsp; &nbsp; &nbsp;</Form.Label>
               <br></br>
-              <CustomStarRating handleClick={this.handleStarClick = this.handleStarClick.bind(this)}/>
+              <ShowStarRating handleStarClick={this.handleStarClick = this.handleStarClick.bind(this)}/>
           </Form.Group>
           <Form.Group>
             <Form.Label inline  id='formQuestions' className={this.state.doRecommendError ? 'error' : ''}>Do You Recommend This Product?*&nbsp; &nbsp; &nbsp;</Form.Label>
