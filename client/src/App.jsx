@@ -18,6 +18,7 @@ class ReviewApp extends React.Component {
       addReview: 0,
       meta: {},
       sortName: 'relevance',
+      starFilterLabel: 'All Stars'
     }
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.handleAddReview = this.handleAddReview.bind(this);
@@ -37,7 +38,6 @@ class ReviewApp extends React.Component {
 
   getRelevantReviews() {
     Parse.getAllList((data) => {
-      console.log(data.results)
       this.setState({numberOfReviews: data.results.length})
       let twoReviews = data.results.splice(0, 2)
       this.setState({sortName: 'relevance'})
@@ -50,7 +50,6 @@ class ReviewApp extends React.Component {
 
   getNewestReviews() {
     Parse.getAllListNewest((data) => {
-      console.log(data.results)
 
       this.setState({numberOfReviews: data.results.length})
 
@@ -71,8 +70,6 @@ class ReviewApp extends React.Component {
   getHelpfulReviews() {
     Parse.getAllListHelpfulness((data) => {
 
-      console.log(data.results)
-
       this.setState({numberOfReviews: data.results.length})
 
       let twoReviews = data.results.splice(0, 2)
@@ -80,6 +77,39 @@ class ReviewApp extends React.Component {
       this.setState({sortName: 'helpfulness'})
 
       this.setState({reviews: data.results})
+
+      this.setState({reviewsToShow: twoReviews})
+
+      ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
+
+      ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
+    });
+  }
+
+  getStarReviews(stars) {
+    Parse.getAllList((data) => {
+
+      this.setState({numberOfReviews: data.results.length})
+
+      this.setState ({starFilterLabel: `${stars} Stars`})
+
+      let reviewArray = data.results;
+
+      let result = [];
+
+      let starRatingArray = reviewArray.map((review) => {
+        if(review.rating === stars) {
+          result.push(review)
+        }
+      })
+
+      console.log(result)
+
+      let twoReviews = result.splice(0, 2)
+
+      this.setState({sortName: 'relevance'})
+
+      this.setState({reviews: result})
 
       this.setState({reviewsToShow: twoReviews})
 
@@ -108,7 +138,7 @@ class ReviewApp extends React.Component {
 
   handleAddReview() {
     if(this.state.addReview === 0) {
-      ReactDOM.render(<AddReviewForm />, document.getElementById('reviewForm'))
+      ReactDOM.render(<AddReviewForm meta={this.state.meta}/>, document.getElementById('reviewForm'))
       this.setState({addReview: 1})
     } else {
       ReactDOM.unmountComponentAtNode(document.getElementById('reviewForm'))
@@ -134,13 +164,25 @@ class ReviewApp extends React.Component {
           </Col>
           <Col fluid>
             <Row>
-            <br></br>
-            <h3>{this.state.numberOfReviews} reviews, sorted by <u>{this.state.sortName}</u></h3>
-            <DropdownButton id="dropdown-item-button">
-              <Dropdown.Item onClick={this.getHelpfulReviews}>Helpfulness</Dropdown.Item>
-              <Dropdown.Item onClick={this.getRelevantReviews}>Relevance</Dropdown.Item>
-              <Dropdown.Item onClick={this.getNewestReviews}>Newest</Dropdown.Item>
-            </DropdownButton>
+              <br></br>
+              <h3>{this.state.numberOfReviews} reviews, sorted by <u>{this.state.sortName}</u></h3>
+              <Col>
+                <DropdownButton id="dropdown-item-button">
+                  <Dropdown.Item onClick={this.getHelpfulReviews}>Helpfulness</Dropdown.Item>
+                  <Dropdown.Item onClick={this.getRelevantReviews}>Relevance</Dropdown.Item>
+                  <Dropdown.Item onClick={this.getNewestReviews}>Newest</Dropdown.Item>
+                </DropdownButton>
+              </Col>
+              <Col>
+                <DropdownButton id="dropdown-star-button" title={this.state.starFilterLabel}>
+                  <Dropdown.Item onClick={() => {this.getStarReviews(5)}}>5 Stars</Dropdown.Item>
+                  <Dropdown.Item onClick={() => {this.getStarReviews(4)}}>4 Stars</Dropdown.Item>
+                  <Dropdown.Item onClick={() => {this.getStarReviews(3)}}>3 Stars</Dropdown.Item>
+                  <Dropdown.Item onClick={() => {this.getStarReviews(2)}}>2 Stars</Dropdown.Item>
+                  <Dropdown.Item onClick={() => {this.getStarReviews(1)}}>1 Stars</Dropdown.Item>
+                  {/* <Dropdown.Item onClick={this.getRelevantReviews}>All Stars</Dropdown.Item> */}
+                </DropdownButton>
+              </Col>
             </Row>
             <div id='reviewPannel'></div>
             <br></br>
