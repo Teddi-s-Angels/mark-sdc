@@ -110,6 +110,10 @@
   background-color: white;
   color: black;
   border: none;
+  font-size: 1.75em;
+  font-weight: 500;
+  padding: none;
+  text-decoration: underline;
 }
 
 #dropdown-item-button:focus {
@@ -134,12 +138,28 @@
 }
 
 #dropdown-star-button {
+  margin-top: 7px;
+  margin-left: 20px;
   background-color: lightgray;
   color: black;
   border: black;
+  display: block;
+  align-content: right;
 
 }
 #dropdown-star-button:focus {
   outline: 0 !important;
   box-shadow: none;
+}
+
+#sortTitle {
+  padding-top: 10px;
+}
+
+#sortDropdown {
+  padding: 0px;
+}
+
+#starFilter {
+  padding-left: 50px;
 }

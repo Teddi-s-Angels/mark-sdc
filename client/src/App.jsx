@@ -5,6 +5,7 @@ import Parse from './Parse.js';
 import MainReviewPanel from './components/MainReviewPanel.jsx';
 import ProductMeta from './components/ProductMeta.jsx';
 import AddReviewForm from './components/AddReviewForm.jsx';
+import StarRating from './components/StarRating.jsx';
 
 
 class ReviewApp extends React.Component {
@@ -162,24 +163,26 @@ class ReviewApp extends React.Component {
           <Col xs={4}>
             <div id='productMeta'></div>
           </Col>
-          <Col fluid>
-            <Row>
+          <Col fluid> 
+            <Row> 
               <br></br>
-              <h3>{this.state.numberOfReviews} reviews, sorted by <u>{this.state.sortName}</u></h3>
-              <Col>
-                <DropdownButton id="dropdown-item-button">
+              <h3 id='sortTitle'>{this.state.numberOfReviews} reviews, sorted by</h3>
+              <Col noGutters={true} id='sortDropdown'>
+                <DropdownButton id="dropdown-item-button" title={this.state.sortName}>
                   <Dropdown.Item onClick={this.getHelpfulReviews}>Helpfulness</Dropdown.Item>
                   <Dropdown.Item onClick={this.getRelevantReviews}>Relevance</Dropdown.Item>
                   <Dropdown.Item onClick={this.getNewestReviews}>Newest</Dropdown.Item>
                 </DropdownButton>
               </Col>
               <Col>
+              </Col>
+              <Col id='starFilter'> 
                 <DropdownButton id="dropdown-star-button" title={this.state.starFilterLabel}>
-                  <Dropdown.Item onClick={() => {this.getStarReviews(5)}}>5 Stars</Dropdown.Item>
-                  <Dropdown.Item onClick={() => {this.getStarReviews(4)}}>4 Stars</Dropdown.Item>
-                  <Dropdown.Item onClick={() => {this.getStarReviews(3)}}>3 Stars</Dropdown.Item>
-                  <Dropdown.Item onClick={() => {this.getStarReviews(2)}}>2 Stars</Dropdown.Item>
-                  <Dropdown.Item onClick={() => {this.getStarReviews(1)}}>1 Stars</Dropdown.Item>
+                  <Dropdown.Item onClick={() => {this.getStarReviews(5)}}><StarRating rating={5} starDimension={15}/></Dropdown.Item>
+                  <Dropdown.Item onClick={() => {this.getStarReviews(4)}}><StarRating rating={4} starDimension={15}/></Dropdown.Item>
+                  <Dropdown.Item onClick={() => {this.getStarReviews(3)}}><StarRating rating={3} starDimension={15}/></Dropdown.Item>
+                  <Dropdown.Item onClick={() => {this.getStarReviews(2)}}><StarRating rating={2} starDimension={15}/></Dropdown.Item>
+                  <Dropdown.Item onClick={() => {this.getStarReviews(1)}}><StarRating rating={1} starDimension={15}/></Dropdown.Item>
                   {/* <Dropdown.Item onClick={this.getRelevantReviews}>All Stars</Dropdown.Item> */}
                 </DropdownButton>
               </Col>
