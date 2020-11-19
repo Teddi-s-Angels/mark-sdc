@@ -6,7 +6,7 @@ const ProgressBar = (props) => {
   const width = props.width;
 
   const progressContainerStyle = {
-    height: 10,
+    height: 12,
     width: `${width}%`,
     backgroundColor: '#e0e0de',
     borderRadius: 25,
@@ -16,7 +16,7 @@ const ProgressBar = (props) => {
   const progressFillerStyle = {
     height: '100%',
     width: `${progress}%`,
-    backgroundColor: 'grey',
+    backgroundColor: '#00ff00',
     borderRadius: 'inherit',
   }
 

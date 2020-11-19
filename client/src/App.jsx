@@ -19,7 +19,8 @@ class ReviewApp extends React.Component {
       addReview: 0,
       meta: {},
       sortName: 'relevance',
-      starFilterLabel: 'All Stars'
+      starFilterLabel: 'All Stars',
+      productList: []
     }
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.handleAddReview = this.handleAddReview.bind(this);
@@ -29,12 +30,17 @@ class ReviewApp extends React.Component {
   }
 
   componentDidMount() {
-    this.getRelevantReviews()
+    Parse.getAllProductList((productList) => {
+      console.log(productList)
+      this.setState({productList: productList[3].name})
+    });
     Parse.getProductMeta((meta) => {
      console.log(meta)
      this.setState({meta: meta})
      ReactDOM.render(<ProductMeta meta={this.state.meta}/>, document.getElementById('productMeta'))
+     this.getRelevantReviews()
     });
+
   }
 
   getRelevantReviews() {
@@ -45,7 +51,7 @@ class ReviewApp extends React.Component {
       this.setState({reviews: data.results})
       this.setState({reviewsToShow: twoReviews})
       ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
-      ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
+      ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} meta={this.state.meta}/>, document.getElementById('reviewPannel'))
     });
   }
 
@@ -139,7 +145,7 @@ class ReviewApp extends React.Component {
 
   handleAddReview() {
     if(this.state.addReview === 0) {
-      ReactDOM.render(<AddReviewForm meta={this.state.meta}/>, document.getElementById('reviewForm'))
+      ReactDOM.render(<AddReviewForm meta={this.state.meta} product={this.state.productList}/>, document.getElementById('reviewForm'))
       this.setState({addReview: 1})
     } else {
       ReactDOM.unmountComponentAtNode(document.getElementById('reviewForm'))
@@ -160,9 +166,11 @@ class ReviewApp extends React.Component {
           <br></br>
         </Row>
         <Row>
-          <Col xs={4}>
+          <Col xs={3}>
             <div id='productMeta'></div>
           </Col>
+          <Col xl={1}>
+            </Col>
           <Col fluid> 
             <Row> 
               <br></br>

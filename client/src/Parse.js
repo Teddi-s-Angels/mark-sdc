@@ -74,7 +74,19 @@ const Parse = {
         console.error('Failed to fetch meta of reviews from Greenfield')
       }
     });
-  } 
+  },
+  getAllProductList: function(successCB, errorCB = null) {
+    $.ajax({
+      url: 'http://52.26.193.201:3000/products/list?count=20',
+      type: 'GET',
+      contentType: 'application/json',
+      data: {},
+      success: successCB,
+      error: errorCB || function() {
+        console.error('Failed to fetch list of reviews from Greenfield')
+      }
+    });
+  },
 }
 
 export default Parse

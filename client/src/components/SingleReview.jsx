@@ -119,10 +119,11 @@ class SingleReview extends React.Component {
         <Row id='reviewPhoto'>
           <Col xs={6} md={4} id='reviewThumbnailPhoto'>
             {photos}
+            <br></br>
           </Col>
         </Row>
         <Row>
-        <Col><p> Helpful? &nbsp;<a href='#' className='helpful' onClick={this.handleClick}>Yes</a> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;   <u>Report</u></p></Col>
+        <Col><p> Helpful? &nbsp;<u><a className='helpful' onClick={this.handleClick}>Yes</a></u> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;   <u>Report</u></p></Col>
         </Row>
       </Container>
     )

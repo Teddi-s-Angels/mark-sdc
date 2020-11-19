@@ -54,7 +54,13 @@
 #reviewFormTitle {
   font-size: 30px;
   text-align: center;
-  padding-bottom: 10px;
+}
+
+#reviewFormSubtitle {
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 5px;
+  font-weight: 300;
 }
 
 #reviewButton {
@@ -162,4 +168,18 @@
 
 #starFilter {
   padding-left: 50px;
+}
+
+a {
+  cursor: pointer;
+}
+
+#finePrint {
+  font-size: 9px;
+}
+
+#starRatingLabel {
+  margin-left: 10px;
+  padding-top: 3px;
+  margin-bottom: 0px;
 }

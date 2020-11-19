@@ -12,7 +12,12 @@ class StarChart extends React.Component {
       twoStars: ((props.ratings[2] / totalRatings) * 100),  
       threeStars: ((props.ratings[3] / totalRatings) * 100), 
       fourStars: ((props.ratings[4] / totalRatings) * 100), 
-      fiveStars: ((props.ratings[5] / totalRatings) * 100)
+      fiveStars: ((props.ratings[5] / totalRatings) * 100),
+      oneStarCount: props.ratings[1],
+      twoStarCount: props.ratings[2],
+      threeStarCount: props.ratings[3],
+      fourStarCount: props.ratings[4],
+      fiveStarCount: props.ratings[5],
     }
   }
 
@@ -23,19 +28,19 @@ class StarChart extends React.Component {
           <Row>
             <Col>
               <Row>
-                <u>1 Stars</u> <ProgressBar value={this.state.oneStars} width={75}/>
+                <u>1 Stars&nbsp;</u> <ProgressBar value={this.state.oneStars} width={70} color='#00ff00'/> ({this.state.oneStarCount})
               </Row>
               <Row>
-                <u>2 Stars</u>  <ProgressBar value={this.state.twoStars} width={75} />
+                <u>2 Stars</u>  <ProgressBar value={this.state.twoStars} width={70} color='#00ff00' />({this.state.twoStarCount})
               </Row>
               <Row>
-                <u>3 Stars</u>  <ProgressBar value={this.state.threeStars} width={75} />
+                <u>3 Stars</u>  <ProgressBar value={this.state.threeStars} width={70} color='#00ff00'/> ({this.state.threeStarCount})
               </Row>
               <Row>
-                <u>4 Stars</u>  <ProgressBar value={this.state.fourStars} width={75} />
+                <u>4 Stars</u>  <ProgressBar value={this.state.fourStars} width={70} color='#00ff00' /> ({this.state.fourStarCount})
               </Row>
               <Row>
-                <u>5 Stars</u>  <ProgressBar value={this.state.fiveStars} width={75} />
+                <u>5 Stars</u>  <ProgressBar value={this.state.fiveStars} width={70} color='#00ff00' /> ({this.state.fiveStarCount})
               </Row>
             </Col>
           </Row>

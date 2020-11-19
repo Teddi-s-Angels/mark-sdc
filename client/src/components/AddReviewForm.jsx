@@ -36,7 +36,9 @@ class AddReviewForm extends React.Component {
       widthError: false,
       fitError: false,
       photos: [],
-      photoURL: ''
+      photoURL: '',
+      productName: props.product,
+      starRatingLabel: '',
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -157,7 +159,19 @@ class AddReviewForm extends React.Component {
   }
 
   handleStarClick(stars) {
+    stars=Number(stars)
     this.setState({stars: stars})
+    if(stars === 1) {
+      this.setState({starRatingLabel: 'Poor'})
+    } else if(stars === 2) {
+      this.setState({starRatingLabel: 'Fair'})
+    } else if(stars === 3) {
+      this.setState({starRatingLabel: 'Average'})
+    } else if(stars === 4) {
+      this.setState({starRatingLabel: 'Good'})
+    } else if(stars === 5) {
+      this.setState({starRatingLabel: 'Great'})
+    }
   }
 
   handlePhotos(e) {
@@ -209,15 +223,20 @@ class AddReviewForm extends React.Component {
       <div>
         <Form id='addReviewForm'>
         <h3 id='reviewFormTitle'>Write Your Review</h3>
+        <h3 id='reviewFormSubtitle'>About the {this.state.productName}</h3>
         <Form.Row>
           <Col>
             <Form.Group>
-                <Form.Control name='nickname' maxlength='20' type='text' placeholder='Enter Username*' value={this.state.nickname} onChange={this.handleChange} className={this.state.nicknameError ? 'error' : ''}/>
+              <Form.Label id='formQuestions'>Username*</Form.Label>
+                <Form.Control name='nickname' maxlength='20' type='text' placeholder='Example: jackson11!' value={this.state.nickname} onChange={this.handleChange} className={this.state.nicknameError ? 'error' : ''}/>
+                <p id='finePrint'>&nbsp;For privacy reasons, do not use your full name or email address</p>
             </Form.Group>
           </Col>
           <Col>
+            <Form.Label id='formQuestions'>Email*</Form.Label>
             <Form.Group>
-              <Form.Control name='email' required value={this.state.email} type='email' placeholder='Enter Valid Email*' onChange={this.handleChange} className={this.state.emailError ? 'error' : ''}/>
+              <Form.Control name='email' maxlength='60' required value={this.state.email} type='email' placeholder='Example: jackson11@email.com' onChange={this.handleChange} className={this.state.emailError ? 'error' : ''}/>
+              <p id='finePrint'>&nbsp;For authentication reasons, you will not be emailed</p>
               <p id='emailError'>{this.state.emailError ? 'Enter Value Email' : ''}</p>
             </Form.Group>
           </Col>
@@ -225,7 +244,9 @@ class AddReviewForm extends React.Component {
           <Form.Group>
             <Form.Label className={this.state.starsError ? 'error' : ''} id='formQuestions'>What is your overall rating of this product?*&nbsp; &nbsp; &nbsp;</Form.Label>
               <br></br>
-              <ShowStarRating handleStarClick={this.handleStarClick = this.handleStarClick.bind(this)}/>
+              <Form.Row>
+              <ShowStarRating handleStarClick={this.handleStarClick = this.handleStarClick.bind(this)}/> <p id='starRatingLabel'>{this.state.starRatingLabel}</p>
+              </Form.Row>
           </Form.Group>
           <Form.Group>
             <Form.Label inline  id='formQuestions' className={this.state.doRecommendError ? 'error' : ''}>Do You Recommend This Product?*&nbsp; &nbsp; &nbsp;</Form.Label>
@@ -233,77 +254,79 @@ class AddReviewForm extends React.Component {
             <Form.Check inline name='doRecommend' value={0} label='No' type='radio' id='inline-radio1' onChange={this.handleChange} />
           </Form.Group>
           <Form.Group>
-            <Form.Control required name='summary' value={this.state.summary} maxlength='60' type='text' placeholder='Enter Review Title' onChange={this.handleChange} className={this.state.summaryError ? 'error' : ''}/>
-            <p id='charCount'>{60 - this.state.summaryChar} Characters Left</p>
+            <Form.Label id='formQuestions'>Review Title</Form.Label>
+            <Form.Control required name='summary' value={this.state.summary} maxlength='60' type='text' placeholder='Example: Best Purchase Ever!' onChange={this.handleChange} className={this.state.summaryError ? 'error' : ''}/>
+            {/* <p id='charCount'>{60 - this.state.summaryChar} Characters Left</p> */}
           </Form.Group>
           <Form.Group>
-            <Form.Control as='textarea' name='body' value={this.state.body} required maxlength='1000' type='text' placeholder='Enter Full Review*' onChange={this.handleChange} className={this.state.bodyError ? 'error' : ''}/>
-            <p id='charCount'><b>{this.state.bodyError ? 'Review must be 50 characters or longer' : ''}</b> &nbsp; &nbsp; &nbsp; {1000 - this.state.bodyChar} Characters Left</p>
+            <Form.Label id='formQuestions'>Review Body*</Form.Label>
+            <Form.Control as='textarea' name='body' value={this.state.body} required maxlength='1000' type='text' placeholder='Why did you like the product or not?' onChange={this.handleChange} className={this.state.bodyError ? 'error' : ''}/>
+            <p id='charCount'><b>{this.state.bodyError ? 'Review must be 50 characters or longer' : ''}</b> &nbsp; &nbsp; &nbsp; {this.state.bodyChar >= 50 ? 'Minimum Reached' : `Minimum Required Characters Left: ${50 - this.state.bodyChar}`}</p>
           </Form.Group>
           <Form.Group>
             <Form.Label id='formQuestions'>How Was the Quality of the Product You Recieved*</Form.Label>
             <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.quality} onChange={this.handleChange} name='quality' className={this.state.qualityError ? 'error' : ''}>
               <option value={0}>None Selected</option>
               <option value={5}>5 - Perfect</option>
-              <option value={4}>4 - Great</option>
-              <option value={3}>3 - Not Poor, but Not Great</option>
-              <option value={2}>2 - Poor</option>
-              <option value={1}>1 - Disapointing</option>
+              <option value={4}>4 - Pretty Great</option>
+              <option value={3}>3 - What I Expected</option>
+              <option value={2}>2 - Below Average</option>
+              <option value={1}>1 - Poor</option>
             </Form.Control>
           </Form.Group>
           <Form.Group>
           <Form.Label id='formQuestions'>How Comfortable is the Product Your Ordered*</Form.Label>
             <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.comfort} onChange={this.handleChange} name='comfort' className={this.state.comfortError ? 'error' : ''}>
               <option value={0}>None Selected</option>
-              <option value={5}>5 - Very Comfortable</option>
-              <option value={4}>4 - Somewhat Comfortable</option>
-              <option value={3}>3 - It is Average</option>
-              <option value={2}>2 - Dissapointing</option>
-              <option value={1}>1 - Not Comfortable</option>
+              <option value={5}>5 - Perfect</option>
+              <option value={4}>4 - Comfortable</option>
+              <option value={3}>3 - Ok</option>
+              <option value={2}>2 - Slightly Uncomfortable</option>
+              <option value={1}>1 - Uncomfortable</option>
             </Form.Control>
           </Form.Group>
           <Form.Group>
           <Form.Label id='formQuestions'>Was the Size Accurate With the Listing?*</Form.Label>
             <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.size} onChange={this.handleChange} name='size' className={this.state.sizeError ? 'error' : ''}>
               <option>None Selected</option>
-              <option value={5}>5 - Way Too Big</option>
-              <option value={4}>4 - A Little Big</option>
+              <option value={5}>5 - A Size Too Big</option>
+              <option value={4}>4 - A 1/2 Size Too Big</option>
               <option value={3}>3 - Perfect</option>
-              <option value={2}>2 - A Little Small</option>
-              <option value={1}>1 - Way Too Small</option>
+              <option value={2}>2 - A 1/2 Size Too Small</option>
+              <option value={1}>1 - A Size Too Small</option>
             </Form.Control>
           </Form.Group>
           <Form.Group>
           <Form.Label id='formQuestions'>Was the Length Accurate With the Listing?*</Form.Label>
             <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.length} onChange={this.handleChange} name='length' className={this.state.lengthError ? 'error' : ''}>
               <option value={0}>None Selected</option>
-              <option value={5}>5 - Way Too Long</option>
-              <option value={4}>4 - A Little Long</option>
+              <option value={5}>5 - Runs Long</option>
+              <option value={4}>4 - Runs Slightly Long</option>
               <option value={3}>3 - Perfect</option>
-              <option value={2}>2 - A Little Short</option>
-              <option value={1}>1 - Way Too Short</option>
+              <option value={2}>2 - Runs Slightly Short</option>
+              <option value={1}>1 - Runs Short</option>
             </Form.Control>
           </Form.Group>
           <Form.Group>
           <Form.Label id='formQuestions'>Was the Width Accurate With the Listing?*</Form.Label>
             <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.width} onChange={this.handleChange} name='width' className={this.state.widthError ? 'error' : ''}>
               <option value={0}>None Selected</option>
-              <option value={5}>5 - Way Too Big</option>
-              <option value={4}>4 - A Little Big</option>
+              <option value={5}>5 - Too Wide</option>
+              <option value={4}>4 - Slightly Wide</option>
               <option value={3}>3 - Perfect</option>
-              <option value={2}>2 - A Little Tight</option>
-              <option value={1}>1 - Way Too Tight</option>
+              <option value={2}>2 - Slightly Narrow</option>
+              <option value={1}>1 - Too Narrow</option>
             </Form.Control>
           </Form.Group>
           <Form.Group>
           <Form.Label id='formQuestions'>Was the Fit Accurate With the Listing?*</Form.Label>
             <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.fit} onChange={this.handleChange} name='fit' className={this.state.fitError ? 'error' : ''}>
               <option value={0}>None Selected</option>
-              <option value={5}>5 - Fit Perfectly</option>
-              <option value={4}>4 - Great Fit</option>
-              <option value={3}>3 - As Expected</option>
-              <option value={2}>2 - Poor Fit</option>
-              <option value={1}>1 - Does Not Fit</option>
+              <option value={5}>5 - Runs Loose</option>
+              <option value={4}>4 - Runs Slightly Loose</option>
+              <option value={3}>3 - Perfect</option>
+              <option value={2}>2 - Runs Slightly Tight</option>
+              <option value={1}>1 - Runs Tight</option>
             </Form.Control>
           </Form.Group>
           <Form.Group>
@@ -311,7 +334,6 @@ class AddReviewForm extends React.Component {
             <Form.Control name='photoURL' type='text' placeholder='Enter Valid URL to Photo' value={this.state.photoURL} onChange={this.handleChange}/>
           </Form.Group>
            <p id='requiredField'>* = required</p>
-          <br></br>
           <Button variant='primary' onClick={this.validate}>Post Review</Button>
         </Form>
       </div>
