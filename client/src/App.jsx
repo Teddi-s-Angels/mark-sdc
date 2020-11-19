@@ -90,8 +90,6 @@ class ReviewApp extends React.Component {
   getStarReviews(stars) {
     Parse.getAllList((data) => {
 
-      this.setState({numberOfReviews: data.results.length})
-
       this.setState ({starFilterLabel: `${stars} Stars`})
 
       let reviewArray = data.results;
@@ -103,6 +101,8 @@ class ReviewApp extends React.Component {
           result.push(review)
         }
       })
+
+      this.setState({numberOfReviews: result.length})
 
       console.log(result)
 
@@ -166,7 +166,7 @@ class ReviewApp extends React.Component {
           <Col fluid> 
             <Row> 
               <br></br>
-              <h3 id='sortTitle'>{this.state.numberOfReviews} reviews, sorted by</h3>
+              <h3 id='sortTitle'>{this.state.numberOfReviews} {this.state.numberOfReviews === 1 ? 'review' : 'reviews'}, sorted by</h3>
               <Col noGutters={true} id='sortDropdown'>
                 <DropdownButton id="dropdown-item-button" title={this.state.sortName}>
                   <Dropdown.Item onClick={this.getHelpfulReviews}>Helpfulness</Dropdown.Item>
