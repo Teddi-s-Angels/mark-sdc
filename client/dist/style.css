@@ -124,3 +124,22 @@
 #review {
   overflow: hidden;
 }
+
+#reviewDropdown {
+  cursor: pointer;
+}
+
+#inline-radio1 {
+  cursor: pointer;
+}
+
+#dropdown-star-button {
+  background-color: lightgray;
+  color: black;
+  border: black;
+
+}
+#dropdown-star-button:focus {
+  outline: 0 !important;
+  box-shadow: none;
+}

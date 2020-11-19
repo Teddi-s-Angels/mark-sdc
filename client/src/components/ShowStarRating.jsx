@@ -14,7 +14,6 @@ class ShowStarRating extends React.Component {
 
   handleClick(event) {
     const value = event.target.value
-    console.log(value)
     this.setState({rating: value})
     this.handleStarClick(value)
   }
