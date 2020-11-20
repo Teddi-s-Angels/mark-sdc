@@ -87,6 +87,18 @@ const Parse = {
       }
     });
   },
+  reportReview: function(id, successCB, errorCB = null) {
+    $.ajax({
+      url: `http://52.26.193.201:3000/reviews/report/${id}`,
+      type: 'PUT',
+      contentType: 'application/json',
+      data: {},
+      success: successCB,
+      error: errorCB || function() {
+        console.error('Failed to mark review as helpful from Greenfield')
+      }
+    })
+  },
 }
 
 export default Parse

@@ -12,6 +12,7 @@ class Fit extends React.Component {
   render() {
     return(
       <div>
+        <Col>
         <Row id = 'characteristicsTitle'>Fit:</Row>
         <Row fluid>
           <ProgressBar width={100} value={(this.state.fit * 20)} />
@@ -33,6 +34,7 @@ class Fit extends React.Component {
             Fit Perfectly
           </Col>
         </Row>
+        </Col>
       </div> 
     )
   }

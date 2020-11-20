@@ -12,6 +12,7 @@ class Width extends React.Component {
   render() {
     return(
       <div>
+        <Col>
         <Row id = 'characteristicsTitle'>Width:</Row>
         <Row fluid>
           <ProgressBar width={100} value={(this.state.width * 20)} />
@@ -33,6 +34,7 @@ class Width extends React.Component {
             Too Wide
           </Col>
         </Row>
+        </Col>
       </div> 
     )
   }

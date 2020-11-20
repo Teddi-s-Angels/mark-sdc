@@ -12,6 +12,7 @@ class Quality extends React.Component {
   render() {
     return(
       <div>
+        <Col>
         <Row id = 'characteristicsTitle'>Quality:</Row>
         <Row fluid>
           <ProgressBar width={100} value={(this.state.quality * 20)} />
@@ -33,6 +34,7 @@ class Quality extends React.Component {
             Perfect Quality
           </Col>
         </Row>   
+        </Col>
       </div>
     )
   }

@@ -36,7 +36,7 @@ class LargeRating extends React.Component {
     return(
       <Container>
         <Row>
-          <Col xs={3}>
+          <Col xl={4}>
             <div>
               <p id='nf-number'>{this.state.averageRating}</p>
             </div>

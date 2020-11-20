@@ -25,6 +25,6 @@ const ProgressBar = (props) => {
       <div style={progressFillerStyle}></div>
     </div>
   )
-}
+} 
 
 export default ProgressBar;

@@ -12,6 +12,7 @@ class Comfort extends React.Component {
   render() {
     return(
       <div>
+        <Col>
         <Row id = 'characteristicsTitle'> Comfort:
         </Row>
         <Row fluid>
@@ -34,6 +35,7 @@ class Comfort extends React.Component {
             Perfect Comfort
           </Col>
         </Row>
+        </Col>
       </div> 
     )
   }

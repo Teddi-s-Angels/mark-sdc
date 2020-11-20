@@ -22,9 +22,11 @@ class SingleReview extends React.Component {
       summary: props.review.summary,
       isHelpful: 0,
       readMore: false,
+      didReport: false,
     }
     this.handleClick = this.handleClick.bind(this);
     this.showMore = this.showMore.bind(this);
+    this.handleReport = this.handleReport.bind(this)
   }
 
   componentDidMount() {
@@ -36,6 +38,13 @@ class SingleReview extends React.Component {
 
   showMore() {
     this.setState({readMore: true})
+  }
+
+  handleReport() {
+    this.setState({didReport: true})
+    Parse.reportReview(this.state.reviewId, (result) => {
+      console.log(result);
+    })
   }
 
   handleClick() {
@@ -93,6 +102,12 @@ class SingleReview extends React.Component {
     } else {
       photos='';
     }
+    let reported;
+    if(this.state.didReport) {
+      reported = <b>This review has been reported!</b>
+    } else {
+      reported = <u><a className='report' onClick={this.handleReport}>Report</a></u>
+    }
     return (
       <Container id='review' fluid>
         <Row>
@@ -123,7 +138,7 @@ class SingleReview extends React.Component {
           </Col>
         </Row>
         <Row>
-        <Col><p> Helpful? &nbsp;<u><a className='helpful' onClick={this.handleClick}>Yes</a></u> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;   <u>Report</u></p></Col>
+        <p> Helpful? &nbsp;<u><a className='helpful' onClick={this.handleClick}>Yes</a></u> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;  {reported} </p>
         </Row>
       </Container>
     )

@@ -12,6 +12,7 @@ class Length extends React.Component {
   render() {
     return(
       <div>
+        <Col>
         <Row id = 'characteristicsTitle'>Length:</Row>
         <Row fluid>
           <ProgressBar width={100} value={(this.state.length * 20)} />
@@ -33,6 +34,7 @@ class Length extends React.Component {
             Too Long
           </Col>
         </Row>
+        </Col>
       </div> 
     )
   }

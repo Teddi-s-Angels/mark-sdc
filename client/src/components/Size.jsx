@@ -12,6 +12,7 @@ class Size extends React.Component {
   render() {
     return(
       <div>
+        <Col>
         <Row id = 'characteristicsTitle'>Size:</Row>
         <Row fluid>
           <ProgressBar width={100} value={(this.state.size * 20)} />
@@ -33,6 +34,7 @@ class Size extends React.Component {
             Too Big
           </Col>
         </Row>
+        </Col>
       </div> 
     )
   }

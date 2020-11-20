@@ -20,13 +20,15 @@ class ReviewApp extends React.Component {
       meta: {},
       sortName: 'relevance',
       starFilterLabel: 'All Stars',
-      productList: []
+      productList: [],
+      filterOn: false,
     }
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.handleAddReview = this.handleAddReview.bind(this);
     this.getNewestReviews = this.getNewestReviews.bind(this);
     this.getHelpfulReviews = this.getHelpfulReviews.bind(this);
     this.getRelevantReviews = this.getRelevantReviews.bind(this);
+    this.handleClearFilter = this.handleClearFilter.bind(this);
   }
 
   componentDidMount() {
@@ -56,6 +58,7 @@ class ReviewApp extends React.Component {
   }
 
   getNewestReviews() {
+
     Parse.getAllListNewest((data) => {
 
       this.setState({numberOfReviews: data.results.length})
@@ -108,6 +111,8 @@ class ReviewApp extends React.Component {
         }
       })
 
+      this.setState({filterOn: true})
+
       this.setState({numberOfReviews: result.length})
 
       console.log(result)
@@ -152,9 +157,20 @@ class ReviewApp extends React.Component {
       this.setState({addReview: 0})
     }
   }
-    
-  
+
+  handleClearFilter() {
+    this.setState({filterOn: false})
+    this.setState({starFilterLabel: 'All Stars'})
+    this.getRelevantReviews()
+  }
+
   render() {
+    let clearFilter;
+    if(this.state.filterOn) {
+      clearFilter = <p id='clearFilter'><u><a onClick={this.handleClearFilter}>Clear Filter</a></u></p>
+    } else {
+      clearFilter = <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    }
     return ( 
       <div>
         <br></br>
@@ -166,11 +182,9 @@ class ReviewApp extends React.Component {
           <br></br>
         </Row>
         <Row>
-          <Col xs={3}>
+          <Col xl={4}>
             <div id='productMeta'></div>
           </Col>
-          <Col xl={1}>
-            </Col>
           <Col fluid> 
             <Row> 
               <br></br>
@@ -182,9 +196,9 @@ class ReviewApp extends React.Component {
                   <Dropdown.Item onClick={this.getNewestReviews}>Newest</Dropdown.Item>
                 </DropdownButton>
               </Col>
-              <Col>
-              </Col>
-              <Col id='starFilter'> 
+              <Col id='starFilter'>
+                <Row>
+                {clearFilter}
                 <DropdownButton id="dropdown-star-button" title={this.state.starFilterLabel}>
                   <Dropdown.Item onClick={() => {this.getStarReviews(5)}}><StarRating rating={5} starDimension={15}/></Dropdown.Item>
                   <Dropdown.Item onClick={() => {this.getStarReviews(4)}}><StarRating rating={4} starDimension={15}/></Dropdown.Item>
@@ -193,6 +207,7 @@ class ReviewApp extends React.Component {
                   <Dropdown.Item onClick={() => {this.getStarReviews(1)}}><StarRating rating={1} starDimension={15}/></Dropdown.Item>
                   {/* <Dropdown.Item onClick={this.getRelevantReviews}>All Stars</Dropdown.Item> */}
                 </DropdownButton>
+                </Row>
               </Col>
             </Row>
             <div id='reviewPannel'></div>
