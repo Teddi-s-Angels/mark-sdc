@@ -20,6 +20,7 @@ class ReviewApp extends React.Component {
       meta: {},
       sortName: 'relevance',
       starFilterLabel: 'All Stars',
+      starFilter: null,
       productList: [],
       filterOn: false,
     }
@@ -105,7 +106,7 @@ class ReviewApp extends React.Component {
 
       let result = [];
 
-      let starRatingArray = reviewArray.map((review) => {
+      reviewArray.map((review) => {
         if(review.rating === stars) {
           result.push(review)
         }
@@ -118,8 +119,6 @@ class ReviewApp extends React.Component {
       console.log(result)
 
       let twoReviews = result.splice(0, 2)
-
-      this.setState({sortName: 'relevance'})
 
       this.setState({reviews: result})
 
@@ -199,7 +198,7 @@ class ReviewApp extends React.Component {
               <Col id='starFilter'>
                 <Row>
                 {clearFilter}
-                <DropdownButton id="dropdown-star-button" title={this.state.starFilterLabel}>
+                <DropdownButton id="dropdown-star-button" className='starDropdown' title={this.state.starFilterLabel}>
                   <Dropdown.Item onClick={() => {this.getStarReviews(5)}}><StarRating rating={5} starDimension={15}/></Dropdown.Item>
                   <Dropdown.Item onClick={() => {this.getStarReviews(4)}}><StarRating rating={4} starDimension={15}/></Dropdown.Item>
                   <Dropdown.Item onClick={() => {this.getStarReviews(3)}}><StarRating rating={3} starDimension={15}/></Dropdown.Item>

@@ -39,6 +39,7 @@ class AddReviewForm extends React.Component {
       photoURL: '',
       productName: props.product,
       starRatingLabel: '',
+      sentReview: false,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -209,16 +210,28 @@ class AddReviewForm extends React.Component {
       characteristics: characteristicsObj
     }
     console.log(body)
-    Parse.submitReview(JSON.stringify(body), (err, result) => {
-      if(err) {
-        console.log(err)
-      } else {
-        console.log(result)
-      }
-    })
+
+    if(this.state.sentReview) {
+      return
+    } else {
+      Parse.submitReview(JSON.stringify(body), (err, result) => {
+        if(err) {
+          console.log(err)
+        } else {
+          console.log(result)
+        }
+      })
+    }
+    this.setState({sentReview: true})
   }
 
   render() {
+    let reviewSent;
+    if(this.state.sentReview) {
+      reviewSent = <b>Review Was Sent Successfully</b>
+    } else {
+      reviewSent = <Button variant='primary' onClick={this.validate}>Post Review</Button>
+    }
     return (
       <div>
         <Form id='addReviewForm'>
@@ -236,14 +249,16 @@ class AddReviewForm extends React.Component {
             <Form.Label id='formQuestions'>Email*</Form.Label>
             <Form.Group>
               <Form.Control name='email' maxlength='60' required value={this.state.email} type='email' placeholder='Example: jackson11@email.com' onChange={this.handleChange} className={this.state.emailError ? 'error' : ''}/>
+              {/* <p id='emailError'>{this.state.emailError ? 'Enter Value Email' : ''}</p> */}
               <p id='finePrint'>&nbsp;For authentication reasons, you will not be emailed</p>
-              <p id='emailError'>{this.state.emailError ? 'Enter Value Email' : ''}</p>
+             
             </Form.Group>
           </Col>
         </Form.Row>
           <Form.Group>
             <Form.Row>
-            <Form.Label className={this.state.starsError ? 'error' : ''} id='formQuestions'>What is your overall rating of this product?*&nbsp; &nbsp; &nbsp;</Form.Label>
+            <br></br>
+            <Form.Label className={this.state.starsError ? 'error' : ''} id='formQuestionsRadio'>What is your overall rating of this product?*&nbsp; &nbsp; &nbsp;</Form.Label>
               <br></br>
               <ShowStarRating handleStarClick={this.handleStarClick = this.handleStarClick.bind(this)}/> <p id='starRatingLabel'>{this.state.starRatingLabel}</p>
               </Form.Row>
@@ -285,7 +300,7 @@ class AddReviewForm extends React.Component {
               <option value={1}>1 - Uncomfortable</option>
             </Form.Control>
           </Form.Group>
-          <Form.Group>
+          {/* <Form.Group>
           <Form.Label id='formQuestions'>Was the Size Accurate With the Listing?*</Form.Label>
             <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.size} onChange={this.handleChange} name='size' className={this.state.sizeError ? 'error' : ''}>
               <option>None Selected</option>
@@ -295,7 +310,7 @@ class AddReviewForm extends React.Component {
               <option value={2}>2 - A 1/2 Size Too Small</option>
               <option value={1}>1 - A Size Too Small</option>
             </Form.Control>
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group>
           <Form.Label id='formQuestions'>Was the Length Accurate With the Listing?*</Form.Label>
             <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.length} onChange={this.handleChange} name='length' className={this.state.lengthError ? 'error' : ''}>
@@ -307,7 +322,7 @@ class AddReviewForm extends React.Component {
               <option value={1}>1 - Runs Short</option>
             </Form.Control>
           </Form.Group>
-          <Form.Group>
+          {/* <Form.Group>
           <Form.Label id='formQuestions'>Was the Width Accurate With the Listing?*</Form.Label>
             <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.width} onChange={this.handleChange} name='width' className={this.state.widthError ? 'error' : ''}>
               <option value={0}>None Selected</option>
@@ -317,7 +332,7 @@ class AddReviewForm extends React.Component {
               <option value={2}>2 - Slightly Narrow</option>
               <option value={1}>1 - Too Narrow</option>
             </Form.Control>
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group>
           <Form.Label id='formQuestions'>Was the Fit Accurate With the Listing?*</Form.Label>
             <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.fit} onChange={this.handleChange} name='fit' className={this.state.fitError ? 'error' : ''}>
@@ -334,7 +349,9 @@ class AddReviewForm extends React.Component {
             <Form.Control name='photoURL' type='text' placeholder='Enter Valid URL to Photo' value={this.state.photoURL} onChange={this.handleChange}/>
           </Form.Group>
            <p id='requiredField'>* = required</p>
-          <Button variant='primary' onClick={this.validate}>Post Review</Button>
+           <Form.Row>
+          {reviewSent}
+           </Form.Row>
         </Form>
       </div>
     )

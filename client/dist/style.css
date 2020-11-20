@@ -20,7 +20,6 @@
   font-size: 12px;
   align-content: right;
   text-align: right;
-  padding-top: 5px;
 }
 
 #nf-number {
@@ -168,6 +167,7 @@
 
 #starFilter {
   padding-left: 50px;
+  margin-left: 100px;
   align-content: right;
   float: right;
 }
@@ -195,4 +195,15 @@ a {
 
 #clearFilter {
   padding-top: 10px;
+}
+
+#formQuestionsRadio {
+  padding-top: 5px;
+  font-weight: bold;
+  padding-left: 5px;
+}
+
+.starDropdown {
+  align-content: right;
+  float: right;
 }

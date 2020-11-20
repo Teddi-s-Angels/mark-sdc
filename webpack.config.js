@@ -12,6 +12,13 @@ module.exports = {
             presets: ['@babel/preset-react', '@babel/preset-env'] // Environment Presets... Not 100% what these do
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       }
     ]
   },

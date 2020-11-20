@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import StarRating from './StarRating.jsx';
 import Parse from '../Parse.js';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 
 class SingleReview extends React.Component {
   constructor(props) {
@@ -23,10 +25,12 @@ class SingleReview extends React.Component {
       isHelpful: 0,
       readMore: false,
       didReport: false,
+      photoLightboxTriggered: false,
     }
     this.handleClick = this.handleClick.bind(this);
     this.showMore = this.showMore.bind(this);
     this.handleReport = this.handleReport.bind(this)
+    this.handlePhotoLightbox = this.handlePhotoLightbox.bind(this)
   }
 
   componentDidMount() {
@@ -38,6 +42,10 @@ class SingleReview extends React.Component {
 
   showMore() {
     this.setState({readMore: true})
+  }
+
+  handlePhotoLightbox() {
+    this.setState({photoLightboxTriggered: true})
   }
 
   handleReport() {
@@ -98,7 +106,7 @@ class SingleReview extends React.Component {
     }
     let photos;
     if(this.state.photos.length > 0) {
-      photos = <div><p>{this.state.photos[0] ? 'Photos: ' : ''}</p><Image src={this.state.photos[0].url} thumbnail /></div>
+      photos = <div><p>{this.state.photos[0] ? 'Photos: ' : ''}</p><Image onClick={this.handlePhotoLightbox} src={this.state.photos[0].url} thumbnail /></div>
     } else {
       photos='';
     }
@@ -107,6 +115,10 @@ class SingleReview extends React.Component {
       reported = <b>This review has been reported!</b>
     } else {
       reported = <u><a className='report' onClick={this.handleReport}>Report</a></u>
+    }
+    let photoLightbox;
+    if(this.state.photoLightboxTriggered) {
+      photoLightbox = <Lightbox mainSrc={this.state.photos[0].url} onCloseRequest={() => this.setState({ photoLightboxTriggered: false })}/>
     }
     return (
       <Container id='review' fluid>
@@ -135,10 +147,11 @@ class SingleReview extends React.Component {
           <Col xs={6} md={4} id='reviewThumbnailPhoto'>
             {photos}
             <br></br>
+            {photoLightbox}
           </Col>
         </Row>
         <Row>
-        <p> Helpful? &nbsp;<u><a className='helpful' onClick={this.handleClick}>Yes</a></u> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;  {reported} </p>
+        <p>&nbsp;&nbsp;&nbsp; Helpful? &nbsp;<u><a className='helpful' onClick={this.handleClick}>Yes</a></u> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;  {reported} </p>
         </Row>
       </Container>
     )
