@@ -242,9 +242,9 @@ class AddReviewForm extends React.Component {
           </Col>
         </Form.Row>
           <Form.Group>
+            <Form.Row>
             <Form.Label className={this.state.starsError ? 'error' : ''} id='formQuestions'>What is your overall rating of this product?*&nbsp; &nbsp; &nbsp;</Form.Label>
               <br></br>
-              <Form.Row>
               <ShowStarRating handleStarClick={this.handleStarClick = this.handleStarClick.bind(this)}/> <p id='starRatingLabel'>{this.state.starRatingLabel}</p>
               </Form.Row>
           </Form.Group>
