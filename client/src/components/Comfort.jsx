@@ -12,27 +12,27 @@ class Comfort extends React.Component {
   render() {
     return(
       <div>
-        <Col xl={11}>
-        <Row id = 'characteristicsTitle'> Comfort:
+        <Col fluid>
+        <Row id = 'characteristicsTitle'> <b>Comfort:</b>
         </Row>
         <Row fluid>
           <IconProgress width={100} value={(this.state.comfort * 20)} />
         </Row>
         <Row fluid>
           <Col>
-            No Comfort
+          Poor
           </Col>
           <Col>
-            Poor Comfort
+          <p></p>
           </Col>
           <Col>
-            Expected Comfort
+            Expected
           </Col>
           <Col>
-            Good Comfort
+          <p></p>
           </Col>
           <Col>
-            Perfect Comfort
+            Perfect
           </Col>
         </Row>
         </Col>

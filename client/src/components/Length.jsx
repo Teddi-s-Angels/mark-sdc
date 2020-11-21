@@ -12,26 +12,26 @@ class Length extends React.Component {
   render() {
     return(
       <div>
-        <Col xl={11}>
-        <Row id = 'characteristicsTitle'>Length:</Row>
+        <Col fluid>
+        <Row id = 'characteristicsTitle'><b>Length:</b></Row>
         <Row fluid>
           <IconProgress width={100} value={(this.state.length * 20)} />
         </Row>
         <Row fluid>
           <Col>
-            Too Short
+            Runs Short
           </Col>
-          <Col> 
-            Somewhat Short
+          <Col>
+          <p></p>
           </Col>
           <Col>
             Perfect
           </Col>
           <Col>
-            Somewhat Long
+          <p></p>
           </Col>
           <Col>
-            Too Long
+          Runs Long
           </Col>
         </Row>
         </Col>

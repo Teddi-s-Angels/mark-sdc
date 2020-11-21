@@ -1,6 +1,11 @@
+#reviewAppHeading{
+  font-size: 20px;
+  font-weight: 300;
+}
+
 #summary {
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 #review {
@@ -9,11 +14,12 @@
 }
 
 #body {
-  font-size: 20px;
+  font-size: 15px;
 }
 
-.didRecommend {
+#didRecommend {
   font-size: 15px;
+  font-weight: 700;
 }
 
 #date {
@@ -23,10 +29,10 @@
 }
 
 #nf-number {
-  font-size: 60px;
+  font-size: 75px;
   text-align: center;
-  font-weight: bolder;
-  padding-right: 20px;
+  font-weight: 500;
+  padding-right: 10px;
 }
 
 #nf-stars {
@@ -34,6 +40,7 @@
   padding-top: 13px;
   align-items: left;
   align-content: left;
+  margin-top: 10px;
 }
 
 #reviewPanelStars {
@@ -77,6 +84,7 @@
 #characteristics {
   font-size: 10px;
   text-align: center;
+  width: 90%;
 }
 
 #characteristicsTitle {
@@ -115,10 +123,11 @@
   background-color: white;
   color: black;
   border: none;
-  font-size: 1.75em;
   font-weight: 500;
-  padding: none;
+  padding: 0;
   text-decoration: underline;
+  font-size: 20px;
+  margin-top: 0px;
 }
 
 #dropdown-item-button:focus {
@@ -143,7 +152,7 @@
 }
 
 #dropdown-star-button {
-  margin-top: 7px;
+  margin-top: 0px;
   margin-left: 20px;
   background-color: lightgray;
   color: black;
@@ -158,14 +167,18 @@
 }
 
 #sortTitle {
-  padding-top: 10px;
+  padding-top: 6px;
+  padding-left: 50px;
+  font-size: 20px;
 }
 
 #sortDropdown {
   padding: 0px;
+  font-size: 20px;
 }
 
 #starFilter {
+  font-size: 20px;
   padding-left: 50px;
   margin-left: 100px;
   align-content: right;
@@ -215,4 +228,9 @@ a {
 path {
   vertical-align: top;
   top: 0px;
+}
+
+#starFilterLink {
+  text-decoration: underline;
+  cursor: pointer;
 }

@@ -17,6 +17,7 @@ class ProductMeta extends React.Component {
       comfort: props.meta.comfort
     }
     this.getPercentRecommend = this.getPercentRecommend.bind(this)
+    this.getStarReviews = props.getStarReviews.bind(this)
   }
 
   componentDidMount() {
@@ -42,11 +43,11 @@ class ProductMeta extends React.Component {
           <p><b>{this.state.percRecommended}</b>% of Reviewers Recommend This Product</p>
         </Row>
         <Row>
-          <StarChart ratings={this.state.ratings} />
+          <StarChart ratings={this.state.ratings} getStarReviews={this.getStarReviews}/>
         </Row>
         <br></br>
         <Row>
-          <Characteristics stats={this.state.characteristics} />
+          <Characteristics stats={this.state.characteristics}/>
         </Row>
       </div>
     )

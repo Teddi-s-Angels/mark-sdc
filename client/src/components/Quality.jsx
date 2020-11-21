@@ -12,26 +12,26 @@ class Quality extends React.Component {
   render() {
     return(
       <div>
-        <Col xl={11}>
-        <Row id = 'characteristicsTitle'>Quality:</Row>
+        <Col fluid>
+        <Row id = 'characteristicsTitle'><b>Quality:</b></Row>
         <Row fluid>
           <IconProgress width={100} value={(this.state.quality * 20)} />
         </Row>
         <Row fluid>
           <Col>
-            No Quality
+          Poor
           </Col>
           <Col>
-            Poor Quality
+          <p></p>
           </Col>
           <Col>
-            Expected  Quality
+            Expected
           </Col>
           <Col>
-            Good Quality
+          <p></p>
           </Col>
           <Col>
-            Perfect Quality
+            Perfect
           </Col>
         </Row>   
         </Col>

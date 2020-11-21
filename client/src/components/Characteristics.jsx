@@ -37,6 +37,7 @@ class Characteristics extends React.Component {
         {this.state.fit ? <Fit fit={this.state.fit.value} /> : <p></p> }
 
         {this.state.length ? <Length length={this.state.length.value} /> : <p></p> }
+
       </div>
     )
   }

@@ -12,26 +12,26 @@ class Fit extends React.Component {
   render() {
     return(
       <div>
-        <Col xl={11}>
-        <Row id = 'characteristicsTitle'>Fit:</Row>
+        <Col fluid>
+        <Row id = 'characteristicsTitle'><b>Fit</b></Row>
         <Row fluid>
           <IconProgress width={100} value={(this.state.fit * 20)} />
         </Row>
         <Row fluid>
           <Col>
-            Did Not Fit
-          </Col>
-          <Col> 
-            Somewhat Fit
+            Runs Loose
           </Col>
           <Col>
-            As Expected
+          <p></p>
           </Col>
           <Col>
-            Good Fit
+            Perfect
           </Col>
           <Col>
-            Fit Perfectly
+          <p></p>
+          </Col>
+          <Col>
+            Runs Tight
           </Col>
         </Row>
         </Col>
