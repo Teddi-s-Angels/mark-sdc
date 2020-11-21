@@ -207,3 +207,12 @@ a {
   align-content: right;
   float: right;
 }
+
+#imageThumbnail {
+  max-width: 150px;
+}
+
+path {
+  vertical-align: top;
+  top: 0px;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Col, Row } from 'react-bootstrap'
-import ProgressBar from './ProgressBar.jsx'
+import IconProgress from './IconProgress.jsx'
 class Size extends React.Component {
   constructor(props) {
     super(props);
@@ -12,10 +12,10 @@ class Size extends React.Component {
   render() {
     return(
       <div>
-        <Col>
+        <Col xl={11}>
         <Row id = 'characteristicsTitle'>Size:</Row>
         <Row fluid>
-          <ProgressBar width={100} value={(this.state.size * 20)} />
+          <IconProgress width={100} value={(this.state.size * 20)} />
         </Row>
         <Row fluid>
           <Col>

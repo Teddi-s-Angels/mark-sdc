@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap'
-import ProgressBar from './ProgressBar.jsx'
+import IconProgress from './IconProgress.jsx'
 class Quality extends React.Component {
   constructor(props) {
     super(props);
@@ -12,10 +12,10 @@ class Quality extends React.Component {
   render() {
     return(
       <div>
-        <Col>
+        <Col xl={11}>
         <Row id = 'characteristicsTitle'>Quality:</Row>
         <Row fluid>
-          <ProgressBar width={100} value={(this.state.quality * 20)} />
+          <IconProgress width={100} value={(this.state.quality * 20)} />
         </Row>
         <Row fluid>
           <Col>

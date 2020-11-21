@@ -6,6 +6,7 @@ import MainReviewPanel from './components/MainReviewPanel.jsx';
 import ProductMeta from './components/ProductMeta.jsx';
 import AddReviewForm from './components/AddReviewForm.jsx';
 import StarRating from './components/StarRating.jsx';
+import '../dist/style.css'
 
 
 class ReviewApp extends React.Component {
@@ -151,6 +152,7 @@ class ReviewApp extends React.Component {
     if(this.state.addReview === 0) {
       ReactDOM.render(<AddReviewForm meta={this.state.meta} product={this.state.productList}/>, document.getElementById('reviewForm'))
       this.setState({addReview: 1})
+      document.getElementById('reviewForm').scrollIntoView()
     } else {
       ReactDOM.unmountComponentAtNode(document.getElementById('reviewForm'))
       this.setState({addReview: 0})

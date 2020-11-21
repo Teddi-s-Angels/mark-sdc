@@ -25,19 +25,19 @@ class Characteristics extends React.Component {
 
   render () {
     return (
-      <Col fluid id='characteristics'>
+      <div id='characteristics'>
         {this.state.comfort ? <Comfort comfort={this.state.comfort.value} /> : <p></p> }
 
         {this.state.quality ? <Quality quality={this.state.quality.value} /> : <p></p> }
 
-        {this.state.size ? <Size size={this.state.size.value} /> : <p></p> }
+        {this.state.size ? <Size size={this.state.size.value} /> : ''}
 
-        {this.state.width ? <Width width={this.state.width.value} /> : <p></p> }
+        {this.state.width ? <Width width={this.state.width.value} /> : '' }
 
         {this.state.fit ? <Fit fit={this.state.fit.value} /> : <p></p> }
 
         {this.state.length ? <Length length={this.state.length.value} /> : <p></p> }
-      </Col>
+      </div>
     )
   }
 }

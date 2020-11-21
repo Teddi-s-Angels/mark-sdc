@@ -1,8 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import Parse from '../Parse.js';
-import { Col, Button, Form } from 'react-bootstrap';
+import { Col, Button, Form, Image, Row } from 'react-bootstrap';
 import ShowStarRating from './ShowStarRating.jsx';
-
 
 class AddReviewForm extends React.Component {
   constructor(props) {
@@ -177,9 +177,11 @@ class AddReviewForm extends React.Component {
 
   handlePhotos(e) {
     e.preventDefault();
-    const url = this.state.photoURL
-    let newState = this.state.photos.push(url)
-    this.setState({photos: newState});
+    const ArrayURL = this.state.photoURL.split(' ')
+    let newState = this.state.photos.concat(ArrayURL)
+    this.setState({photos: newState})
+    ReactDOM.render(<Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photoURL} />, document.getElementById('photoPreview'))
+    this.setState({photoURL: ''})
   }
 
   handleSubmit() {
@@ -345,9 +347,19 @@ class AddReviewForm extends React.Component {
             </Form.Control>
           </Form.Group>
           <Form.Group>
-          <Form.Label id='formQuestions'>Share a Photo of Your Purchase?*</Form.Label>
-            <Form.Control name='photoURL' type='text' placeholder='Enter Valid URL to Photo' value={this.state.photoURL} onChange={this.handleChange}/>
+          <Form.Label id='formQuestions'>Share a Photo of Your Purchase</Form.Label>
+            <Form.Row>
+              <Col auto>
+                <Form.Control name='photoURL' type='text' placeholder='Enter Valid URL to Photo' value={this.state.photoURL} onChange={this.handleChange}/>
+              </Col>
+              <Col xl={2}>
+                <Button id='addPhoto' onClick={this.handlePhotos} >Attach</Button>
+              </Col>
+            </Form.Row>
           </Form.Group>
+          <Form.Row id='photoPreview'>
+              
+          </Form.Row>
            <p id='requiredField'>* = required</p>
            <Form.Row>
           {reviewSent}
