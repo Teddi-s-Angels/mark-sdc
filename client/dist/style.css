@@ -13,6 +13,12 @@
   border-bottom: 2px solid lightgray;
 }
 
+#reviewPannelHeader {
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  height: 40px;
+}
+
 #body {
   font-size: 15px;
 }
@@ -28,10 +34,14 @@
   text-align: right;
 }
 
+#helpful {
+  font-size: 15px;
+}
+
 #nf-number {
   font-size: 75px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 700;
   padding-right: 10px;
 }
 
@@ -70,10 +80,12 @@
 }
 
 #reviewButton {
-  padding: 10px;
+  border-radius: 0;
+  padding: 15px;
   background-color: white;
-  color: slategray;
-  font-size: 20px;
+  color: 	#606060;
+  font-size: 17px;
+  font-weight: 600;
   border: 1px solid black;
 }
 
@@ -81,15 +93,40 @@
   font-weight: bold;
 }
 
+#characteristicsLabels {
+  padding-bottom: 10px;
+}
+
 #characteristics {
-  font-size: 10px;
+  font-size: 11px;
   text-align: center;
-  width: 90%;
+  width: 85%;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-bottom: 15px;
+}
+
+#characteristicsLeft {
+  padding-right: 20px;
+  padding-left: 0px;
+  text-align: left;
+  margin-left: 0px;
+  font-size: 11px;
+}
+
+#characteristicsMiddle {
+  font-size: 11px;
+  text-align: center;
+}
+
+#characteristicsRight {
+  padding-right: 0px;
+  font-size: 11px;
+  text-align: right;
 }
 
 #characteristicsTitle {
   font-size: 13px;
-  padding-top: 10px;
 }
 
 #customRating {
@@ -120,14 +157,17 @@
 }
 
 #dropdown-item-button {
+  margin-bottom: 0px;
+  border-radius: 0;
   background-color: white;
   color: black;
   border: none;
   font-weight: 500;
   padding: 0;
-  text-decoration: underline;
   font-size: 20px;
   margin-top: 0px;
+  border-bottom: 2px solid black;
+  padding-top: 3px;
 }
 
 #dropdown-item-button:focus {
@@ -227,10 +267,25 @@ a {
 
 path {
   vertical-align: top;
-  top: 0px;
+  top: -1px;
 }
 
 #starFilterLink {
   text-decoration: underline;
   cursor: pointer;
+}
+
+#starFilterLinkOne {
+  text-decoration: underline;
+  cursor: pointer;
+  margin-right: 3px;
+}
+
+#thumbnailReviewImage {
+  height: 100px;
+  width: auto;
+}
+
+#photoInput {
+  width: 89%;
 }

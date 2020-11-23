@@ -40,11 +40,9 @@ class ReviewApp extends React.Component {
 
   componentDidMount() {
     Parse.getAllProductList((productList) => {
-      console.log(productList)
       this.setState({productList: productList[3].name})
     });
     Parse.getProductMeta((meta) => {
-     console.log(meta)
      this.setState({meta: meta})
      ReactDOM.render(<ProductMeta meta={this.state.meta} getStarReviews={this.getStarReviews}/>, document.getElementById('productMeta'))
      this.getRelevantReviews()
@@ -104,8 +102,6 @@ class ReviewApp extends React.Component {
   }
 
   getStarReviews(stars) {
-    console.log(stars)
-    // let stars = event.target.value
     Parse.getAllList((data) => {
 
       this.setState ({starFilterLabel: `${stars} Stars`})
@@ -123,17 +119,11 @@ class ReviewApp extends React.Component {
       this.setState({numberOfReviews: result.length})
 
       this.setState({filterOn: true})
-      console.log(result)
-
 
       let twoReviews = result.splice(0, 2)
-      console.log(result)
 
       this.setState({reviewsToShow: twoReviews})
       this.setState({reviews: result})
-
-      console.log(result.length)
-      console.log(this.state.reviewsToShow)
 
       ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
 
@@ -187,7 +177,7 @@ class ReviewApp extends React.Component {
     if(this.state.reviews.length === 0) {
       showMoreReviews = ''
     } else {
-      showMoreReviews = <Button id='reviewButton' onClick={this.handleMoreReviews} >Show More Reviews</Button>
+      showMoreReviews = <Button id='reviewButton' onClick={this.handleMoreReviews} >More Reviews</Button>
     }
 
 
@@ -204,7 +194,7 @@ class ReviewApp extends React.Component {
             <div id='productMeta'></div>
           </Col>
           <Col fluid> 
-            <Row> 
+            <Row id='reviewPannelHeader'> 
               <br></br>
               <Col id='sortDropdown' fluid>
                 <Row>
@@ -216,31 +206,31 @@ class ReviewApp extends React.Component {
                 </DropdownButton>
                 </Row>
               </Col>
-              {clearFilter}
               <Col id='starFilter' xl={4}>
                 <Row>
-                {clearFilter}
+                <p>{clearFilter}</p>
                 <DropdownButton id="dropdown-star-button" className='starDropdown' title={this.state.starFilterLabel}>
                   <Dropdown.Item onClick={() => {this.getStarReviews(5)}}><StarRating rating={5} starDimension={15}/></Dropdown.Item>
                   <Dropdown.Item onClick={() => {this.getStarReviews(4)}}><StarRating rating={4} starDimension={15}/></Dropdown.Item>
                   <Dropdown.Item onClick={() => {this.getStarReviews(3)}}><StarRating rating={3} starDimension={15}/></Dropdown.Item>
                   <Dropdown.Item onClick={() => {this.getStarReviews(2)}}><StarRating rating={2} starDimension={15}/></Dropdown.Item>
                   <Dropdown.Item onClick={() => {this.getStarReviews(1)}}><StarRating rating={1} starDimension={15}/></Dropdown.Item>
-                  <Dropdown.Item onClick={this.getRelevantReviews}>All Stars</Dropdown.Item>
+                  {/* <Dropdown.Item onClick={this.getRelevantReviews}>All Stars</Dropdown.Item> */}
                 </DropdownButton>
                 </Row>
               </Col>
             </Row>
             <div id='reviewPannel'></div>
-            <Button id='reviewButton' onClick={this.handleAddReview}> Add Review + </Button> &nbsp; &nbsp; &nbsp; &nbsp;
-            {showMoreReviews}
+            <br></br>
+            <br></br>
+              {showMoreReviews} &nbsp; &nbsp; &nbsp; &nbsp;
+              <Button id='reviewButton' onClick={this.handleAddReview}> Add A Review &nbsp;&nbsp;&#43; </Button>
             <br></br>
             <br></br>
             <br></br>
             <div id='reviewForm'>
 
             </div>
-            <br></br>
             <br></br>
           </Col>
         </Row>

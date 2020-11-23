@@ -211,7 +211,6 @@ class AddReviewForm extends React.Component {
       photos: this.state.photoURL.split(' '),
       characteristics: characteristicsObj
     }
-    console.log(body)
 
     if(this.state.sentReview) {
       return
@@ -349,12 +348,8 @@ class AddReviewForm extends React.Component {
           <Form.Group>
           <Form.Label id='formQuestions'>Share a Photo of Your Purchase</Form.Label>
             <Form.Row>
-              <Col auto>
-                <Form.Control name='photoURL' type='text' placeholder='Enter Valid URL to Photo' value={this.state.photoURL} onChange={this.handleChange}/>
-              </Col>
-              <Col xl={2}>
-                <Button id='addPhoto' onClick={this.handlePhotos} >Attach</Button>
-              </Col>
+              <Form.Control name='photoURL' type='text' placeholder='Enter Valid URL to Photo' value={this.state.photoURL} onChange={this.handleChange} id='photoInput'/>
+              <Button id='addPhoto' onClick={this.handlePhotos} >Attach</Button>
             </Form.Row>
           </Form.Group>
           <Form.Row id='photoPreview'>

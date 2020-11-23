@@ -9,7 +9,6 @@ import Fit from './fit.jsx';
 class Characteristics extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       allCharacteristics: props.stats,
       comfort: props.stats.Comfort || undefined, 
@@ -19,7 +18,6 @@ class Characteristics extends React.Component {
       length: props.stats.Length || undefined, 
       fit: props.stats.Fit || undefined
     }
-    console.log(this.state)
   }
 
 

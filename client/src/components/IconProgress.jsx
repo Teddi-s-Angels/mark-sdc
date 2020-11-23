@@ -7,11 +7,13 @@ const IconProgress = (props) => {
   const width = props.width;
 
   const progressContainerStyle = {
-    height: 12,
+    height: 10,
     width: `100%`,
     backgroundColor: '#e0e0de',
     borderRadius: 0,
     margin: 7,
+    marginLeft: 0,
+    marginRight: 0,
     position: 'relative'
   }
 
@@ -60,7 +62,7 @@ const IconProgress = (props) => {
   const icon = {
     fontSize: 25,
     top: 0,
-    marginTop: -10,
+    marginTop: -12,
     zIndex: 2,
   }
 

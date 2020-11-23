@@ -17,20 +17,14 @@ class Width extends React.Component {
         <Row fluid>
           <IconProgress width={100} value={(this.state.width * 20)} />
         </Row>
-        <Row fluid>
-          <Col>
+        <Row fluid id = 'characteristicsLabels'>
+          <Col id='characteristicsLeft'>
             Too Tight
           </Col>
-          <Col>
-            Slightly Tight
-          </Col>
-          <Col>
+          <Col id='characteristicsMiddle'>
             Perfect
           </Col>
-          <Col>
-            Slightly Wide
-          </Col>
-          <Col>
+          <Col id='characteristicsRight'>
             Too Wide
           </Col>
         </Row>

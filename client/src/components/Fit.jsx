@@ -13,25 +13,19 @@ class Fit extends React.Component {
     return(
       <div>
         <Col fluid>
-        <Row id = 'characteristicsTitle'><b>Fit</b></Row>
+        <Row id = 'characteristicsTitle'>Fit</Row>
         <Row fluid>
           <IconProgress width={100} value={(this.state.fit * 20)} />
         </Row>
-        <Row fluid>
-          <Col>
-            Runs Loose
+        <Row fluid id = 'characteristicsLabels'>
+          <Col id='characteristicsLeft'>
+            Too Loose
           </Col>
-          <Col>
-          <p></p>
-          </Col>
-          <Col>
+          <Col id='characteristicsMiddle'>
             Perfect
           </Col>
-          <Col>
-          <p></p>
-          </Col>
-          <Col>
-            Runs Tight
+          <Col id='characteristicsRight'>
+            Too Tight
           </Col>
         </Row>
         </Col>

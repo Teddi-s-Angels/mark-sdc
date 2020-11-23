@@ -13,24 +13,18 @@ class Quality extends React.Component {
     return(
       <div>
         <Col fluid>
-        <Row id = 'characteristicsTitle'><b>Quality:</b></Row>
+        <Row id = 'characteristicsTitle'>Quality:</Row>
         <Row fluid>
           <IconProgress width={100} value={(this.state.quality * 20)} />
         </Row>
-        <Row fluid>
-          <Col>
+        <Row fluid id = 'characteristicsLabels'>
+        <Col id='characteristicsLeft'>
           Poor
           </Col>
-          <Col>
-          <p></p>
-          </Col>
-          <Col>
+          <Col id='characteristicsMiddle'>
             Expected
           </Col>
-          <Col>
-          <p></p>
-          </Col>
-          <Col>
+          <Col id='characteristicsRight'>
             Perfect
           </Col>
         </Row>   

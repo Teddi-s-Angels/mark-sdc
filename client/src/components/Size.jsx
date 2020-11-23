@@ -17,20 +17,14 @@ class Size extends React.Component {
         <Row fluid>
           <IconProgress width={100} value={(this.state.size * 20)} />
         </Row>
-        <Row fluid>
-          <Col>
+        <Row fluid id = 'characteristicsLabels'>
+          <Col id='characteristicsLeft'>
             Too Small
           </Col>
-          <Col>
-            Slightly Small
-          </Col>
-          <Col>
+          <Col id='characteristicsMiddle'>
             Perfect
           </Col>
-          <Col>
-            Slightly Big
-          </Col>
-          <Col>
+          <Col id='characteristicsRight'>
             Too Big
           </Col>
         </Row>

@@ -40,7 +40,7 @@ class ProductMeta extends React.Component {
           <LargeRating ratings={this.state.ratings} />
         </Row>
         <Row>
-          <p><b>{this.state.percRecommended}</b>% of Reviewers Recommend This Product</p>
+          <p>{this.state.percRecommended}% of reviews recommend this product</p>
         </Row>
         <Row>
           <StarChart ratings={this.state.ratings} getStarReviews={this.getStarReviews}/>

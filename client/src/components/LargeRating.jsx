@@ -12,7 +12,6 @@ class LargeRating extends React.Component {
       ratings: props.ratings,
       averageRating: 0
     }
-    console.log(this.state)
     this.getAverageRating = this.getAverageRating.bind(this);
   }
 
