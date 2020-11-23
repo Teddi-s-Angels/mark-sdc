@@ -26,6 +26,7 @@ class SingleReview extends React.Component {
       readMore: false,
       didReport: false,
       photoLightboxTriggered: false,
+      lightboxId: null,
     }
     this.handleClick = this.handleClick.bind(this);
     this.showMore = this.showMore.bind(this);
@@ -44,7 +45,9 @@ class SingleReview extends React.Component {
     this.setState({readMore: true})
   }
 
-  handlePhotoLightbox() {
+  handlePhotoLightbox(photoId) {
+    console.log(photoId)
+    this.setState({lightboxId: photoId})
     this.setState({photoLightboxTriggered: true})
   }
 
@@ -105,8 +108,16 @@ class SingleReview extends React.Component {
       recommend = '';
     }
     let photos;
-    if(this.state.photos.length > 0) {
-      photos = <div><p>{this.state.photos[0] ? 'Photos: ' : ''}</p><Image onClick={this.handlePhotoLightbox} src={this.state.photos[0].url} thumbnail /></div>
+    if(this.state.photos.length === 1) {
+      photos = <div><p id='helpful'>Photos:</p><Image onClick={() => this.handlePhotoLightbox(0)} src={this.state.photos[0].url} thumbnail id='thumbnailReviewImage'/></div>
+    } else if(this.state.photos.length === 2) {
+      photos = <div><p id='helpful'>Photos:</p><Image onClick={() => this.handlePhotoLightbox(0)} src={this.state.photos[0].url} thumbnail id='thumbnailReviewImage'/><Image onClick={() => this.handlePhotoLightbox(1)} src={this.state.photos[1].url} thumbnail id='thumbnailReviewImage'/></div>
+    } else if(this.state.photos.length === 3) {
+      photos = <div><p id='helpful'>Photos:</p><Image onClick={() => this.handlePhotoLightbox(0)} src={this.state.photos[0].url} thumbnail id='thumbnailReviewImage'/><Image onClick={() => this.handlePhotoLightbox(1)} src={this.state.photos[1].url} thumbnail id='thumbnailReviewImage'/><Image onClick={() => this.handlePhotoLightbox(2)} src={this.state.photos[2].url} thumbnail id='thumbnailReviewImage'/></div>
+    } else if(this.state.photos.length === 4) {
+      photos = <div><p id='helpful'>Photos:</p><Image onClick={() => this.handlePhotoLightbox(0)} src={this.state.photos[0].url} thumbnail id='thumbnailReviewImage'/><Image onClick={() => this.handlePhotoLightbox(1)} src={this.state.photos[1].url} thumbnail id='thumbnailReviewImage'/><Image onClick={() => this.handlePhotoLightbox(2)} src={this.state.photos[2].url} thumbnail id='thumbnailReviewImage'/><Image onClick={() => this.handlePhotoLightbox(3)} src={this.state.photos[3].url} thumbnail id='thumbnailReviewImage'/></div>
+    } else if(this.state.photos.length === 5) {
+      photos = <div><p id='helpful'>Photos:</p><Image onClick={() => this.handlePhotoLightbox(0)} src={this.state.photos[0].url} thumbnail id='thumbnailReviewImage'/><Image onClick={() => this.handlePhotoLightbox(1)} src={this.state.photos[1].url} thumbnail id='thumbnailReviewImage'/><Image onClick={() => this.handlePhotoLightbox(2)} src={this.state.photos[2].url} thumbnail id='thumbnailReviewImage'/><Image onClick={() => this.handlePhotoLightbox(3)} src={this.state.photos[3].url} thumbnail id='thumbnailReviewImage'/><Image onClick={() => this.handlePhotoLightbox(4)} src={this.state.photos[4].url} thumbnail id='thumbnailReviewImage'/></div>
     } else {
       photos='';
     }
@@ -118,13 +129,13 @@ class SingleReview extends React.Component {
     }
     let photoLightbox;
     if(this.state.photoLightboxTriggered) {
-      photoLightbox = <Lightbox mainSrc={this.state.photos[0].url} onCloseRequest={() => this.setState({ photoLightboxTriggered: false })}/>
+      photoLightbox = <Lightbox mainSrc={this.state.photos[this.state.lightboxId].url} onCloseRequest={() => this.setState({ photoLightboxTriggered: false })}/>
     }
     return (
       <Container id='review' fluid>
         <Row>
           <Col id='reviewPanelStars'>
-          <StarRating starDimension={15} rating={this.state.rating} />
+          <StarRating starDimension={17} rating={this.state.rating} />
           </Col>
           <Col id='date'>
             <br></br>
@@ -144,14 +155,14 @@ class SingleReview extends React.Component {
           <Col><p>{this.state.response}</p></Col>
         </Row>
         <Row id='reviewPhoto'>
-          <Col xs={6} md={4} id='reviewThumbnailPhoto'>
+          <Col fluid id='reviewThumbnailPhoto'>
             {photos}
             <br></br>
             {photoLightbox}
           </Col>
         </Row>
         <Row>
-        <p>&nbsp;&nbsp;&nbsp; Helpful? &nbsp;<u><a className='helpful' onClick={this.handleClick}>Yes</a></u> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;  {reported} </p>
+        <p id='helpful'>&nbsp;&nbsp;&nbsp; Helpful? &nbsp;<u><a className='helpful' onClick={this.handleClick}>Yes</a></u> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;  {reported} </p>
         </Row>
       </Container>
     )
