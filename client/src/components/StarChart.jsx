@@ -29,19 +29,19 @@ class StarChart extends React.Component {
           <Row>
             <Col>
               <Row>
-                <a id='starFilterLink' onClick={() => this.getStarReviews(5)}>5 Stars</a>  <ProgressBar value={this.state.fiveStars} width={70} color='#00ff00' /> ({this.state.fiveStarCount})
+                <a id='starFilterLink' onClick={() => this.getStarReviews(5)}>5 Stars</a>  <ProgressBar value={this.state.fiveStars} width={70} color='#00ff00' /> {this.state.fiveStarCount}
               </Row>
               <Row>
-                <a id='starFilterLink' onClick={() => this.getStarReviews(4)}>4 Stars</a>  <ProgressBar value={this.state.fourStars} width={70} color='#00ff00' /> ({this.state.fourStarCount})
+                <a id='starFilterLink' onClick={() => this.getStarReviews(4)}>4 Stars</a>  <ProgressBar value={this.state.fourStars} width={70} color='#00ff00' /> {this.state.fourStarCount}
               </Row>
               <Row>
-                <a id='starFilterLink' value={3} onClick={() => this.getStarReviews(3)}>3 Stars</a>  <ProgressBar value={this.state.threeStars} width={70} color='#00ff00'/> ({this.state.threeStarCount})
+                <a id='starFilterLink' value={3} onClick={() => this.getStarReviews(3)}>3 Stars</a>  <ProgressBar value={this.state.threeStars} width={70} color='#00ff00'/> {this.state.threeStarCount}
               </Row>
               <Row>
-                <a id='starFilterLink' onClick={() => this.getStarReviews(2)}>2 Stars</a>  <ProgressBar value={this.state.twoStars} width={70} color='#00ff00' />({this.state.twoStarCount})
+                <a id='starFilterLink' onClick={() => this.getStarReviews(2)}>2 Stars</a>  <ProgressBar value={this.state.twoStars} width={70} color='#00ff00' />{this.state.twoStarCount}
               </Row>
               <Row>
-                <a id='starFilterLinkOne' onClick={() => this.getStarReviews(1)}>1 Stars</a> <ProgressBar value={this.state.oneStars} width={70} color='#00ff00'/> ({this.state.oneStarCount})
+                <a id='starFilterLinkOne' onClick={() => this.getStarReviews(1)}>1 Stars</a> <ProgressBar value={this.state.oneStars} width={70} color='#00ff00'/> {this.state.oneStarCount}
               </Row>
             </Col>
           </Row>

@@ -21,7 +21,7 @@ class ReviewApp extends React.Component {
       meta: {},
       sortName: 'relevance',
       starFilterLabel: 'All Stars',
-      starFilter: null,
+      starFilter: [],
       1: false,
       2: false,
       3: false,
@@ -36,6 +36,8 @@ class ReviewApp extends React.Component {
     this.getHelpfulReviews = this.getHelpfulReviews.bind(this);
     this.getRelevantReviews = this.getRelevantReviews.bind(this);
     this.handleClearFilter = this.handleClearFilter.bind(this);
+    this.starhelper = this.starhelper.bind(this);
+    this.handleSort = this.handleSort.bind(this);
   }
 
   componentDidMount() {
@@ -44,7 +46,7 @@ class ReviewApp extends React.Component {
     });
     Parse.getProductMeta((meta) => {
      this.setState({meta: meta})
-     ReactDOM.render(<ProductMeta meta={this.state.meta} getStarReviews={this.getStarReviews}/>, document.getElementById('productMeta'))
+     ReactDOM.render(<ProductMeta meta={this.state.meta} getStarReviews={this.starhelper}/>, document.getElementById('productMeta'))
      this.getRelevantReviews()
     });
 
@@ -101,34 +103,66 @@ class ReviewApp extends React.Component {
     });
   }
 
-  getStarReviews(stars) {
-    Parse.getAllList((data) => {
+  starhelper(stars) {
+    console.log(stars)
+    const newStars = this.state.starFilter
+    newStars.push(stars)
+    this.setState({[stars]: true})
+    this.setState({starFilter: newStars})
+    this.getStarReviews()
+  }
 
-      this.setState ({starFilterLabel: `${stars} Stars`})
-
-      let reviewArray = data.results;
-
-      let result = [];
-
-      reviewArray.map((review) => {
-        if(review.rating === stars) {
-          result.push(review)
-        }
+  getStarReviews() {
+    const array = this.state.starFilter
+    if(this.state.sortName === 'relevance') {
+      Parse.getAllList((data) => {
+        let reviewArray = data.results;
+        let result = [];
+        reviewArray.map((review) => {
+          if(array.indexOf(review.rating) > -1) {
+            result.push(review)
+          }
+        })
+        this.setState({numberOfReviews: result.length})
+        let twoReviews = result.splice(0, 2)
+        this.setState({reviewsToShow: twoReviews})
+        this.setState({reviews: result})
+        ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
+        ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
       })
-
-      this.setState({numberOfReviews: result.length})
-
-      this.setState({filterOn: true})
-
-      let twoReviews = result.splice(0, 2)
-
-      this.setState({reviewsToShow: twoReviews})
-      this.setState({reviews: result})
-
-      ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
-
-      ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
-    })
+    } else if(this.state.sortName === 'newest') {
+      Parse.getAllListNewest((data) => {
+        let reviewArray = data.results;
+        let result = [];
+        reviewArray.map((review) => {
+          if(array.indexOf(review.rating) > -1) {
+            result.push(review)
+          }
+        })
+        this.setState({numberOfReviews: result.length})
+        let twoReviews = result.splice(0, 2)
+        this.setState({reviewsToShow: twoReviews})
+        this.setState({reviews: result})
+        ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
+        ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
+      })
+    } else {
+      Parse.getAllListHelpfulness((data) => {
+        let reviewArray = data.results;
+        let result = [];
+        reviewArray.map((review) => {
+          if(array.indexOf(review.rating) > -1) {
+            result.push(review)
+          }
+        })
+        this.setState({numberOfReviews: result.length})
+        let twoReviews = result.splice(0, 2)
+        this.setState({reviewsToShow: twoReviews})
+        this.setState({reviews: result})
+        ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
+        ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
+      })
+    }
   }
 
 
@@ -159,18 +193,65 @@ class ReviewApp extends React.Component {
     }
   }
 
-  handleClearFilter() {
-    this.setState({filterOn: false})
-    this.setState({starFilterLabel: 'All Stars'})
-    this.getRelevantReviews()
+  handleSort(sortName) {
+    if(sortName === 'newest') {
+      this.setState({sortName: sortName})
+      if(this.state.starFilter.length === 0) {
+        this.getNewestReviews()
+      } else {
+        this.getStarReviews()      
+      }
+    } else if(sortName === 'relevance') {
+      this.setState({sortName: sortName})
+      if(this.state.starFilter.length === 0) {
+        this.getRelevantReviews()
+      } else {
+        this.getStarReviews()      
+      }
+    } else if(sortName === 'helpfulness') {
+      this.setState({sortName: sortName})
+      if(this.state.starFilter.length === 0) {
+        this.getHelpfulReviews()
+      } else {
+        this.getStarReviews()      
+      }
+    }
+  }
+
+  handleClearFilter(stars) {
+    console.log(stars)
+    this.setState({[stars]: false})
+    const array = this.state.starFilter;
+    array.splice(array.indexOf(stars), 1)
+    this.setState({starFilter: array})
+    if(this.state.starFilter.length > 0) {
+      this.getStarReviews()
+    } else {
+      this.getRelevantReviews()
+    }
+    
   }
 
   render() {
-    let clearFilter;
-    if(this.state.filterOn) {
-      clearFilter = <p id='clearFilter'><u><a onClick={this.handleClearFilter}>Clear Filter</a></u></p>
-    } else {
-      clearFilter = <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    let clearFiveStar;
+    if(this.state[5]) {
+      clearFiveStar = <u><a value={5} onClick={() => this.handleClearFilter(5)}>5 Stars</a></u>
+    }
+    let clearFourStar;
+    if(this.state[4]) {
+      clearFourStar = <u><a value={4} onClick={() => this.handleClearFilter(4)}>4 Stars</a></u>
+    }
+    let clearThreeStar;
+    if(this.state[3]) {
+      clearThreeStar = <u><a value={3} onClick={() => this.handleClearFilter(3)}>3 Stars</a></u>
+    }
+    let clearTwoStar;
+    if(this.state[2]) {
+      clearTwoStar = <u><a value={2} onClick={() => this.handleClearFilter(2)}>2 Stars</a></u>
+    }
+    let clearOneStar;
+    if(this.state[1]) {
+      clearOneStar = <u><a value={1} onClick={() => this.handleClearFilter(1)}>1 Star</a></u>
     }
     let numberOfReviews = this.state.numberOfReviews
     let showMoreReviews;
@@ -197,26 +278,26 @@ class ReviewApp extends React.Component {
             <Row id='reviewPannelHeader'> 
               <br></br>
               <Col id='sortDropdown' fluid>
-                <Row>
+                <Row id='sort'>
               <h3 id='sortTitle'>{numberOfReviews} {this.state.numberOfReviews === 1 ? 'review' : 'reviews'}, sorted by&nbsp; </h3>
                 <DropdownButton id="dropdown-item-button" title={this.state.sortName}>
-                  <Dropdown.Item onClick={this.getHelpfulReviews}>Helpfulness</Dropdown.Item>
-                  <Dropdown.Item onClick={this.getRelevantReviews}>Relevance</Dropdown.Item>
-                  <Dropdown.Item onClick={this.getNewestReviews}>Newest</Dropdown.Item>
+                  <Dropdown.Item onClick={() => this.handleSort('helpfulness')}>Helpfulness</Dropdown.Item>
+                  <Dropdown.Item onClick={() => this.handleSort('relevance')}>Relevance</Dropdown.Item>
+                  <Dropdown.Item onClick={() => this.handleSort('newest')}>Newest</Dropdown.Item>
                 </DropdownButton>
                 </Row>
               </Col>
-              <Col id='starFilter' xl={4}>
-                <Row>
-                <p>{clearFilter}</p>
-                <DropdownButton id="dropdown-star-button" className='starDropdown' title={this.state.starFilterLabel}>
+              <Col>
+               <Row id='starFilter'> 
+                <p id='clearFilter'>{clearFiveStar} &nbsp; {clearFourStar} &nbsp; {clearThreeStar} &nbsp; {clearTwoStar} &nbsp; {clearOneStar}</p>
+                {/* <DropdownButton id="dropdown-star-button" className='starDropdown' title={this.state.starFilterLabel}>
                   <Dropdown.Item onClick={() => {this.getStarReviews(5)}}><StarRating rating={5} starDimension={15}/></Dropdown.Item>
                   <Dropdown.Item onClick={() => {this.getStarReviews(4)}}><StarRating rating={4} starDimension={15}/></Dropdown.Item>
                   <Dropdown.Item onClick={() => {this.getStarReviews(3)}}><StarRating rating={3} starDimension={15}/></Dropdown.Item>
                   <Dropdown.Item onClick={() => {this.getStarReviews(2)}}><StarRating rating={2} starDimension={15}/></Dropdown.Item>
                   <Dropdown.Item onClick={() => {this.getStarReviews(1)}}><StarRating rating={1} starDimension={15}/></Dropdown.Item>
-                  {/* <Dropdown.Item onClick={this.getRelevantReviews}>All Stars</Dropdown.Item> */}
-                </DropdownButton>
+                  <Dropdown.Item onClick={this.getRelevantReviews}>All Stars</Dropdown.Item>
+                </DropdownButton> */}
                 </Row>
               </Col>
             </Row>

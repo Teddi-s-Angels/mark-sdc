@@ -69,7 +69,7 @@ class SingleReview extends React.Component {
     }
   }
 
-  formatDate() {
+  formatDate() { 
     let dateArray = this.state.date.split('-');
     let newDate = `${dateArray[2]}, ${dateArray[0]}`
     if(dateArray[1] === '01') {
