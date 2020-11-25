@@ -290,14 +290,6 @@ class ReviewApp extends React.Component {
               <Col>
                <Row id='starFilter'> 
                 <p id='clearFilter'>{clearFiveStar} &nbsp; {clearFourStar} &nbsp; {clearThreeStar} &nbsp; {clearTwoStar} &nbsp; {clearOneStar}</p>
-                {/* <DropdownButton id="dropdown-star-button" className='starDropdown' title={this.state.starFilterLabel}>
-                  <Dropdown.Item onClick={() => {this.getStarReviews(5)}}><StarRating rating={5} starDimension={15}/></Dropdown.Item>
-                  <Dropdown.Item onClick={() => {this.getStarReviews(4)}}><StarRating rating={4} starDimension={15}/></Dropdown.Item>
-                  <Dropdown.Item onClick={() => {this.getStarReviews(3)}}><StarRating rating={3} starDimension={15}/></Dropdown.Item>
-                  <Dropdown.Item onClick={() => {this.getStarReviews(2)}}><StarRating rating={2} starDimension={15}/></Dropdown.Item>
-                  <Dropdown.Item onClick={() => {this.getStarReviews(1)}}><StarRating rating={1} starDimension={15}/></Dropdown.Item>
-                  <Dropdown.Item onClick={this.getRelevantReviews}>All Stars</Dropdown.Item>
-                </DropdownButton> */}
                 </Row>
               </Col>
             </Row>
@@ -310,7 +302,6 @@ class ReviewApp extends React.Component {
             <br></br>
             <br></br>
             <div id='reviewForm'>
-
             </div>
             <br></br>
           </Col>

@@ -178,10 +178,10 @@ class AddReviewForm extends React.Component {
   handlePhotos(e) {
     e.preventDefault();
     const ArrayURL = this.state.photoURL.split(' ')
-    let newState = this.state.photos.concat(ArrayURL)
-    this.setState({photos: newState})
-    ReactDOM.render(<Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photoURL} />, document.getElementById('photoPreview'))
-    this.setState({photoURL: ''})
+    let newState = this.state.photos.concat(ArrayURL);
+    this.setState({photos: newState});
+    this.setState({photoURL: ''});
+    console.log(this.state.photos)
   }
 
   handleSubmit() {
@@ -232,6 +232,36 @@ class AddReviewForm extends React.Component {
       reviewSent = <b>Review Was Sent Successfully</b>
     } else {
       reviewSent = <Button variant='primary' onClick={this.validate}>Post Review</Button>
+    }
+
+    let addPhotoButton;
+    if(this.state.photos.length < 5) {
+      addPhotoButton = <Button id='addPhoto' onClick={this.handlePhotos} >Attach</Button>
+    }
+
+    let photoOne;
+    let photoTwo;
+    let photoThree;
+    let photoFour;
+    let photoFive;
+    if(this.state.photos[0]) {
+      photoOne = <Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photos[0]} />
+    } 
+    
+    if(this.state.photos[1]) {
+      photoTwo = <Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photos[1]} />
+    }
+
+    if(this.state.photos[2]) {
+      photoThree = <Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photos[2]} />
+    }
+
+    if(this.state.photos[3]) {
+      photoFour = <Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photos[3]} />
+    }
+    
+    if(this.state.photos[4]) {
+      photoFive = <Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photos[4]} />
     }
     return (
       <div>
@@ -349,11 +379,15 @@ class AddReviewForm extends React.Component {
           <Form.Label id='formQuestions'>Share a Photo of Your Purchase</Form.Label>
             <Form.Row>
               <Form.Control name='photoURL' type='text' placeholder='Enter Valid URL to Photo' value={this.state.photoURL} onChange={this.handleChange} id='photoInput'/>
-              <Button id='addPhoto' onClick={this.handlePhotos} >Attach</Button>
+              {addPhotoButton}
             </Form.Row>
           </Form.Group>
           <Form.Row id='photoPreview'>
-              
+            {photoOne}
+            {photoTwo}
+            {photoThree}
+            {photoFour}
+            {photoFive}
           </Form.Row>
            <p id='requiredField'>* = required</p>
            <Form.Row>
