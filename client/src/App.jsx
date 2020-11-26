@@ -295,7 +295,7 @@ class ReviewApp extends React.Component {
           <br></br>
         <Container>
         <Row>
-          <Col>
+          <Col id='reviewAppHeading'>
             <h3 id='reviewAppHeading'>RATINGS & REVIEWS</h3>
           </Col>
         </Row>
