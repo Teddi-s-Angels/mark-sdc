@@ -99,7 +99,7 @@ class SingleReview extends React.Component {
     }
     return this.setState({date: newDate})
   }
-
+ 
   render() {
     let recommend;
     if(this.state.recommend === 1) {
