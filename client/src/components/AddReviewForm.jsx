@@ -276,7 +276,6 @@ class AddReviewForm extends React.Component {
     if(this.state.photos[4]) {
       photoFive = <Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photos[4]} />
     }
-    
     let quality;
     let comfort;
     let fit;
@@ -363,6 +362,57 @@ class AddReviewForm extends React.Component {
                 </Form.Group>
     }
 
+    let requirementsHeader;
+    let nicknameError;
+    let emailError;
+    let starsError;
+    let recommendError;
+    let bodyError;
+    let qualityError;
+    let comfortError;
+    let sizeError;
+    let lengthError;
+    let widthError;
+    let fitError;
+
+    if(this.state.starsError === true || this.state.doRecommendError === true || this.state.nicknameError === true || this.state.bodyError === true || this.state.qualityError === true || this.state.comfortError === true || this.state.sizeError === true || this.state.lengthError === true || this.state.widthError === true || this.state.fitError === true || this.state.emailError === true ) {
+      requirementsHeader = <ul id='errorMessage'>Correct the Following:</ul>
+    }
+    
+    if(this.state.starsError) {
+      starsError = <li id='errorMessage'>Please fill in star rating</li>
+    }
+    if(this.state.doRecommendError) {
+      recommendError = <li id='errorMessage'>Please fill in yes or no for recommending product</li>
+    }
+    if(this.state.nicknameError) {
+      nicknameError = <li id='errorMessage'>Please fill in your nickname</li>
+    }
+    if(this.state.bodyError) {
+      bodyError = <li id='errorMessage'>Please fill in the body of the review</li>
+    }
+    if(this.state.qualityError && this.state.meta.Quality) {
+      qualityError = <li id='errorMessage'>Please fill in the quality rating</li>
+    }
+    if(this.state.comfortError && this.state.meta.Comfort) {
+      comfortError = <li id='errorMessage'>Please fill in the comfort rating</li>
+    }
+    if(this.state.sizeError && this.state.meta.Size) {
+      sizeError = <li id='errorMessage'>Please fill in the size rating</li>
+    }
+    if(this.state.lengthError && this.state.meta.Length) {
+      lengthError = <li id='errorMessage'>Please fill in the length rating</li>
+    }
+    if(this.state.widthError && this.state.meta.Width) {
+      widthError = <li id='errorMessage'>Please fill in the width rating</li>
+    }
+    if(this.state.fitError && this.state.meta.Fit) {
+      fitError = <li id='errorMessage'>Please fill in the fit rating</li>
+    }
+    if(this.state.emailError) {
+      emailError = <li id='errorMessage'>Please provide a valid email</li>
+    }
+
     return (
       <div>
         <Form id='addReviewForm'>
@@ -428,7 +478,19 @@ class AddReviewForm extends React.Component {
             {photoFive}
           </Form.Row>
             <p id='requiredField'>* = required</p>
-          <Form.Row>
+            {requirementsHeader}
+            {nicknameError}
+            {emailError}
+            {starsError}
+            {recommendError}
+            {bodyError}
+            {qualityError}
+            {comfortError}
+            {sizeError}
+            {lengthError}
+            {widthError}
+            {fitError}
+          <Form.Row id='submitReviewButton'>
             {reviewSent}
           </Form.Row>
         </Form>

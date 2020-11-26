@@ -275,7 +275,8 @@ a {
 }
 
 #imageThumbnail {
-  max-width: 150px;
+  max-width: 125px;
+  max-height: 100px;
 }
 
 .customStar {
@@ -299,4 +300,15 @@ a {
 
 #requiredField {
   text-align: right;
+}
+
+#errorMessage {
+  font-size: 10px;
+  color: red;
+  padding: 0px;
+  margin: 0px;
+}
+
+#submitReviewButton {
+  padding-top: 15px;
 }
