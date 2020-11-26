@@ -316,7 +316,7 @@ class ReviewApp extends React.Component {
                 </DropdownButton>
                 </Row>
               </Col>
-              <Col>
+              <Col id='starFilter'>
                 <Row id='starFilter'> 
                   <Search handleSearch={this.handleSearch}/>
                 </Row>

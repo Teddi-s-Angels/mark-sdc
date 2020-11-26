@@ -7,7 +7,7 @@
 }
 
 #summary {
-  margin-left: -10px;
+  margin-left: 0px;
   font-weight: bold;
   font-size: 20px;
 }
@@ -36,6 +36,8 @@
   font-size: 12px;
   align-content: right;
   text-align: right;
+  padding-right: 0px;
+  margin-right: 0px;
 }
 
 #helpful {
@@ -238,19 +240,12 @@
 }
 
 #starFilter {
-  font-size: 20px;
-  margin-left: -10px;
-  align-content: right;
-  float: right;
-  text-align: right;
-}
-
-#starFilter {
   font-size: 15px;
-  margin-left: -10px;
   align-content: right;
   float: right;
   text-align: right;
+  margin-right: -8px;
+  padding-right: 10px;
 }
 
 a {
