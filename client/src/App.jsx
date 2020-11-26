@@ -7,6 +7,7 @@ import ProductMeta from './components/ProductMeta.jsx';
 import AddReviewForm from './components/AddReviewForm.jsx';
 import StarRating from './components/StarRating.jsx';
 import '../dist/style.css'
+import Search from './components/Search.jsx';
 
 
 class ReviewApp extends React.Component {
@@ -38,6 +39,7 @@ class ReviewApp extends React.Component {
     this.handleClearFilter = this.handleClearFilter.bind(this);
     this.starhelper = this.starhelper.bind(this);
     this.handleSort = this.handleSort.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -105,11 +107,15 @@ class ReviewApp extends React.Component {
 
   starhelper(stars) {
     console.log(stars)
-    const newStars = this.state.starFilter
-    newStars.push(stars)
-    this.setState({[stars]: true})
-    this.setState({starFilter: newStars})
-    this.getStarReviews()
+    if(this.state[stars]) {
+      this.handleClearFilter(stars)
+    } else {
+      const newStars = this.state.starFilter
+      newStars.push(stars)
+      this.setState({[stars]: true})
+      this.setState({starFilter: newStars})
+      this.getStarReviews()
+    }
   }
 
   getStarReviews() {
@@ -166,7 +172,7 @@ class ReviewApp extends React.Component {
   }
 
 
-  handleMoreReviews() {
+  handleMoreReviews() { 
     let moreReviews = this.state.reviews.splice(0, 2);
     if(moreReviews[0] !== undefined) {
       this.state.reviewsToShow.push(moreReviews[0])
@@ -189,7 +195,7 @@ class ReviewApp extends React.Component {
       document.getElementById('reviewForm').scrollIntoView()
     } else {
       ReactDOM.unmountComponentAtNode(document.getElementById('reviewForm'))
-      this.setState({addReview: 0})
+      this.setState({addReview: 0}) 
     }
   }
 
@@ -220,16 +226,29 @@ class ReviewApp extends React.Component {
 
   handleClearFilter(stars) {
     console.log(stars)
-    this.setState({[stars]: false})
-    const array = this.state.starFilter;
-    array.splice(array.indexOf(stars), 1)
-    this.setState({starFilter: array})
-    if(this.state.starFilter.length > 0) {
-      this.getStarReviews()
-    } else {
+    if(stars === undefined) {
+      const array = [];
+      this.setState({stars: array})
+      for (var i = 1; i < 6; i++) {
+        this.setState({[i]: false})
+      }
       this.getRelevantReviews()
+    } else {
+      this.setState({[stars]: false})
+      const array = this.state.starFilter;
+      array.splice(array.indexOf(stars), 1)
+      this.setState({starFilter: array})
+      if(this.state.starFilter.length > 0) {
+        this.getStarReviews()
+      } else {
+        this.getRelevantReviews()
+      }
     }
-    
+  }
+
+  handleSearch(query) {
+    console.log(query)
+
   }
 
   render() {
@@ -253,6 +272,14 @@ class ReviewApp extends React.Component {
     if(this.state[1]) {
       clearOneStar = <u><a value={1} onClick={() => this.handleClearFilter(1)}>1 Star</a></u>
     }
+    let clearAll;
+    let filterTitle;
+    if(this.state[1] || this.state[2] || this.state[3] || this.state[4] || this.state[5]) {
+      clearAll = <u><a onClick={() => this.handleClearFilter()}>Clear All</a></u>
+      filterTitle = 'Rating Breakdown: '
+
+    }
+
     let numberOfReviews = this.state.numberOfReviews
     let showMoreReviews;
     if(this.state.reviews.length === 0) {
@@ -268,7 +295,9 @@ class ReviewApp extends React.Component {
           <br></br>
         <Container>
         <Row>
-          <h3 id='reviewAppHeading'>RATINGS & REVIEWS</h3>
+          <Col>
+            <h3 id='reviewAppHeading'>RATINGS & REVIEWS</h3>
+          </Col>
         </Row>
         <Row>
           <Col xl={4}>
@@ -288,10 +317,13 @@ class ReviewApp extends React.Component {
                 </Row>
               </Col>
               <Col>
-               <Row id='starFilter'> 
-                <p id='clearFilter'>{clearFiveStar} &nbsp; {clearFourStar} &nbsp; {clearThreeStar} &nbsp; {clearTwoStar} &nbsp; {clearOneStar}</p>
+                <Row id='starFilter'> 
+                  <Search handleSearch={this.handleSearch}/>
                 </Row>
               </Col>
+            </Row>
+            <Row id='starFilter'> 
+              <p id='clearFilter'>{filterTitle} {clearFiveStar} &nbsp; {clearFourStar} &nbsp; {clearThreeStar} &nbsp; {clearTwoStar} &nbsp; {clearOneStar} &nbsp; {clearAll}</p>
             </Row>
             <div id='reviewPannel'></div>
             <br></br>
@@ -303,7 +335,7 @@ class ReviewApp extends React.Component {
             <br></br>
             <div id='reviewForm'>
             </div>
-            <br></br>
+            <br></br> 
           </Col>
         </Row>
       </Container>
