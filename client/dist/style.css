@@ -311,6 +311,7 @@ path {
 
 #thumbnailReviewImage {
   height: 100px;
+  max-width: 125px;
   width: auto;
   cursor: pointer;
 }
