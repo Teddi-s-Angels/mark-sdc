@@ -201,6 +201,7 @@ class AddReviewForm extends React.Component {
       [lengthId]: this.state.length
 
     }
+    console.log(this.state.photos)
     const body = {
       rating: this.state.stars,
       summary: this.state.summary,
@@ -208,7 +209,7 @@ class AddReviewForm extends React.Component {
       recommend: this.state.doRecommend,
       name: this.state.nickname,
       email: this.state.email,
-      photos: this.state.photoURL.split(' '),
+      photos: this.state.photos,
       characteristics: characteristicsObj
     }
 
@@ -263,6 +264,101 @@ class AddReviewForm extends React.Component {
     if(this.state.photos[4]) {
       photoFive = <Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photos[4]} />
     }
+    
+    let quality;
+    let comfort;
+    let fit;
+    let size;
+    let length;
+    let width;
+
+    if(this.state.meta.Quality) {
+      quality = <Form.Group>
+                  <Form.Label id='formQuestions'>How Was the Quality of the Product You Recieved*</Form.Label>
+                  <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.quality} onChange={this.handleChange} name='quality' className={this.state.qualityError ? 'error' : ''}>
+                    <option value={0}>None Selected</option>
+                    <option value={5}>5 - Perfect</option>
+                    <option value={4}>4 - Pretty Great</option>
+                    <option value={3}>3 - What I Expected</option>
+                    <option value={2}>2 - Below Average</option>
+                    <option value={1}>1 - Poor</option>
+                  </Form.Control>
+                </Form.Group>
+    }
+    if(this.state.meta.Comfort) {
+      comfort = <Form.Group>
+                  <Form.Label id='formQuestions'>How Comfortable is the Product Your Ordered*</Form.Label>
+                    <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.comfort} onChange={this.handleChange} name='comfort' className={this.state.comfortError ? 'error' : ''}>
+                      <option value={0}>None Selected</option>
+                      <option value={5}>5 - Perfect</option>
+                      <option value={4}>4 - Comfortable</option>
+                      <option value={3}>3 - Ok</option>
+                      <option value={2}>2 - Slightly Uncomfortable</option>
+                      <option value={1}>1 - Uncomfortable</option>
+                    </Form.Control>
+                  </Form.Group>
+    }
+    if(this.state.meta.Fit) {
+      fit = <Form.Group>
+              <Form.Label id='formQuestions'>Was the Fit Accurate With the Listing?*</Form.Label>
+                <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.fit} onChange={this.handleChange} name='fit' className={this.state.fitError ? 'error' : ''}>
+                  <option value={0}>None Selected</option>
+                  <option value={5}>5 - Runs Loose</option>
+                  <option value={4}>4 - Runs Slightly Loose</option>
+                  <option value={3}>3 - Perfect</option>
+                  <option value={2}>2 - Runs Slightly Tight</option>
+                  <option value={1}>1 - Runs Tight</option>
+                </Form.Control>
+              </Form.Group>
+    }
+    if(this.state.meta.Size) {
+      size = <Form.Group>
+              <Form.Label id='formQuestions'>Was the Size Accurate With the Listing?*</Form.Label>
+                <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.size} onChange={this.handleChange} name='size' className={this.state.sizeError ? 'error' : ''}>
+                  <option>None Selected</option>
+                  <option value={5}>5 - A Size Too Big</option>
+                  <option value={4}>4 - A 1/2 Size Too Big</option>
+                  <option value={3}>3 - Perfect</option>
+                  <option value={2}>2 - A 1/2 Size Too Small</option>
+                  <option value={1}>1 - A Size Too Small</option>
+                </Form.Control>
+              </Form.Group>
+    }
+    if(this.state.meta.Length) {
+      length = <Form.Group>
+                <Form.Label id='formQuestions'>Was the Length Accurate With the Listing?*</Form.Label>
+                  <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.length} onChange={this.handleChange} name='length' className={this.state.lengthError ? 'error' : ''}>
+                    <option value={0}>None Selected</option>
+                    <option value={5}>5 - Runs Long</option>
+                    <option value={4}>4 - Runs Slightly Long</option>
+                    <option value={3}>3 - Perfect</option>
+                    <option value={2}>2 - Runs Slightly Short</option>
+                    <option value={1}>1 - Runs Short</option>
+                  </Form.Control>
+                </Form.Group>
+    }
+    if(this.state.meta.Width) {
+      width = <Form.Group>
+                <Form.Label id='formQuestions'>Was the Width Accurate With the Listing?*</Form.Label>
+                  <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.width} onChange={this.handleChange} name='width' className={this.state.widthError ? 'error' : ''}>
+                    <option value={0}>None Selected</option>
+                    <option value={5}>5 - Too Wide</option>
+                    <option value={4}>4 - Slightly Wide</option>
+                    <option value={3}>3 - Perfect</option>
+                    <option value={2}>2 - Slightly Narrow</option>
+                    <option value={1}>1 - Too Narrow</option>
+                  </Form.Control>
+                </Form.Group>
+    }
+
+
+
+
+
+
+
+
+
     return (
       <div>
         <Form id='addReviewForm'>
@@ -309,72 +405,12 @@ class AddReviewForm extends React.Component {
             <Form.Control as='textarea' name='body' value={this.state.body} required maxlength='1000' type='text' placeholder='Why did you like the product or not?' onChange={this.handleChange} className={this.state.bodyError ? 'error' : ''}/>
             <p id='charCount'><b>{this.state.bodyError ? 'Review must be 50 characters or longer' : ''}</b> &nbsp; &nbsp; &nbsp; {this.state.bodyChar >= 50 ? 'Minimum Reached' : `Minimum Required Characters Left: ${50 - this.state.bodyChar}`}</p>
           </Form.Group>
-          <Form.Group>
-            <Form.Label id='formQuestions'>How Was the Quality of the Product You Recieved*</Form.Label>
-            <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.quality} onChange={this.handleChange} name='quality' className={this.state.qualityError ? 'error' : ''}>
-              <option value={0}>None Selected</option>
-              <option value={5}>5 - Perfect</option>
-              <option value={4}>4 - Pretty Great</option>
-              <option value={3}>3 - What I Expected</option>
-              <option value={2}>2 - Below Average</option>
-              <option value={1}>1 - Poor</option>
-            </Form.Control>
-          </Form.Group>
-          <Form.Group>
-          <Form.Label id='formQuestions'>How Comfortable is the Product Your Ordered*</Form.Label>
-            <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.comfort} onChange={this.handleChange} name='comfort' className={this.state.comfortError ? 'error' : ''}>
-              <option value={0}>None Selected</option>
-              <option value={5}>5 - Perfect</option>
-              <option value={4}>4 - Comfortable</option>
-              <option value={3}>3 - Ok</option>
-              <option value={2}>2 - Slightly Uncomfortable</option>
-              <option value={1}>1 - Uncomfortable</option>
-            </Form.Control>
-          </Form.Group>
-          {/* <Form.Group>
-          <Form.Label id='formQuestions'>Was the Size Accurate With the Listing?*</Form.Label>
-            <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.size} onChange={this.handleChange} name='size' className={this.state.sizeError ? 'error' : ''}>
-              <option>None Selected</option>
-              <option value={5}>5 - A Size Too Big</option>
-              <option value={4}>4 - A 1/2 Size Too Big</option>
-              <option value={3}>3 - Perfect</option>
-              <option value={2}>2 - A 1/2 Size Too Small</option>
-              <option value={1}>1 - A Size Too Small</option>
-            </Form.Control>
-          </Form.Group> */}
-          <Form.Group>
-          <Form.Label id='formQuestions'>Was the Length Accurate With the Listing?*</Form.Label>
-            <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.length} onChange={this.handleChange} name='length' className={this.state.lengthError ? 'error' : ''}>
-              <option value={0}>None Selected</option>
-              <option value={5}>5 - Runs Long</option>
-              <option value={4}>4 - Runs Slightly Long</option>
-              <option value={3}>3 - Perfect</option>
-              <option value={2}>2 - Runs Slightly Short</option>
-              <option value={1}>1 - Runs Short</option>
-            </Form.Control>
-          </Form.Group>
-          {/* <Form.Group>
-          <Form.Label id='formQuestions'>Was the Width Accurate With the Listing?*</Form.Label>
-            <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.width} onChange={this.handleChange} name='width' className={this.state.widthError ? 'error' : ''}>
-              <option value={0}>None Selected</option>
-              <option value={5}>5 - Too Wide</option>
-              <option value={4}>4 - Slightly Wide</option>
-              <option value={3}>3 - Perfect</option>
-              <option value={2}>2 - Slightly Narrow</option>
-              <option value={1}>1 - Too Narrow</option>
-            </Form.Control>
-          </Form.Group> */}
-          <Form.Group>
-          <Form.Label id='formQuestions'>Was the Fit Accurate With the Listing?*</Form.Label>
-            <Form.Control id='reviewDropdown' as='select' defaultValue='None Selected' value={this.state.fit} onChange={this.handleChange} name='fit' className={this.state.fitError ? 'error' : ''}>
-              <option value={0}>None Selected</option>
-              <option value={5}>5 - Runs Loose</option>
-              <option value={4}>4 - Runs Slightly Loose</option>
-              <option value={3}>3 - Perfect</option>
-              <option value={2}>2 - Runs Slightly Tight</option>
-              <option value={1}>1 - Runs Tight</option>
-            </Form.Control>
-          </Form.Group>
+          {quality}
+          {comfort}
+          {size}
+          {length}
+          {width}
+          {fit}
           <Form.Group>
           <Form.Label id='formQuestions'>Share a Photo of Your Purchase</Form.Label>
             <Form.Row>
