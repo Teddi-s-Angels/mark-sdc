@@ -31,8 +31,6 @@ class ProductMeta extends React.Component {
     this.setState({percRecommended: percent})
   }
 
-
-
   render() {
     return (
       <div id='mainRating'>

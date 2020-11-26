@@ -25,14 +25,13 @@ class ShowStarRating extends React.Component {
           const ratingValue = i + 1;
   
           return (
-            <label>
+            <label key={ratingValue}>
               <input 
                 type='radio'
                 id='customRating'
                 name='rating'
                 value={ratingValue}
-                onClick={this.handleClick}     
-                //onClick={props.handleClick}        
+                onClick={this.handleClick}      
               />
               <FaStar
                 className='customStar'

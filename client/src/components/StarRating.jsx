@@ -7,7 +7,6 @@ class StarRating extends React.Component {
     this.state = {
       rating: props.rating,
       starDimension: `${props.starDimension}px`,
-      color: ''
     }
   }
  

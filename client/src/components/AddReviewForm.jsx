@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 import Parse from '../Parse.js';
-import { Col, Button, Form, Image, Row } from 'react-bootstrap';
+import { Col, Button, Form, Image } from 'react-bootstrap';
 import ShowStarRating from './ShowStarRating.jsx';
 
 class AddReviewForm extends React.Component {
@@ -46,6 +45,7 @@ class AddReviewForm extends React.Component {
     this.handleStarClick = this.handleStarClick.bind(this);
     this.validate = this.validate.bind(this);
     this.handlePhotos = this.handlePhotos.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
   }
   handleChange(event) {
     const target = event.target;
@@ -104,37 +104,37 @@ class AddReviewForm extends React.Component {
       this.setState({starsError: false})
     }
 
-    if(this.state.quality === 0) {
+    if(this.state.quality === 0 && this.state.meta.Quality) {
       this.setState({qualityError: true})
     } else {
       this.setState({qualityError: false})
     }
 
-    if(this.state.comfort === 0) {
+    if(this.state.comfort === 0 && this.state.meta.Comfort) {
       this.setState({comfortError: true})
     } else {
       this.setState({comfortError: false})
     }
 
-    if(this.state.size === 0) {
+    if(this.state.size === 0 && this.state.meta.Size) {
       this.setState({sizeError: true})
     } else {
       this.setState({sizeError: false})
     }
 
-    if(this.state.length === 0) {
+    if(this.state.length === 0 && this.state.meta.Length) {
       this.setState({lengthError: true})
     } else {
       this.setState({lengthError: false})
     }
 
-    if(this.state.width === 0) {
+    if(this.state.width === 0 && this.state.meta.Width) {
       this.setState({widthError: true})
     } else {
       this.setState({widthError: false})
     }
 
-    if(this.state.fit === 0) {
+    if(this.state.fit === 0 && this.state.meta.Fit) {
       this.setState({fitError: true})
     } else {
       this.setState({fitError: false})
@@ -151,7 +151,11 @@ class AddReviewForm extends React.Component {
     } else {
       this.setState({doRecommendError: false})
     }
+    setTimeout(function() {this.handleValidation()}.bind(this), 100)
+  }
 
+  handleValidation() {
+    console.log(this.state)
     if(this.state.starsError === true || this.state.doRecommendError === true || this.state.nicknameError === true || this.state.bodyError === true || this.state.qualityError === true || this.state.comfortError === true || this.state.sizeError === true || this.state.lengthError === true || this.state.widthError === true || this.state.fitError === true || this.state.emailError === true ) {
       console.log('error')
     } else {
@@ -185,6 +189,13 @@ class AddReviewForm extends React.Component {
   }
 
   handleSubmit() {
+
+    console.log(this.state)
+
+    if(this.state.starsError === true || this.state.doRecommendError === true || this.state.nicknameError === true || this.state.bodyError === true || this.state.qualityError === true || this.state.comfortError === true || this.state.sizeError === true || this.state.lengthError === true || this.state.widthError === true || this.state.fitError === true || this.state.emailError === true ) {
+      return
+    }
+
     //const sizeId = this.state.meta.Size.id ? this.state.meta.Size.id : null;
     const comfortId = this.state.meta.Comfort.id ? this.state.meta.Comfort.id : null;
     const fitId = this.state.meta.Fit.id || null;
@@ -201,7 +212,7 @@ class AddReviewForm extends React.Component {
       [lengthId]: this.state.length
 
     }
-    console.log(this.state.photos)
+
     const body = {
       rating: this.state.stars,
       summary: this.state.summary,
@@ -223,8 +234,9 @@ class AddReviewForm extends React.Component {
           console.log(result)
         }
       })
+      this.setState({sentReview: true})
     }
-    this.setState({sentReview: true})
+    console.log(this.state)
   }
 
   render() {
@@ -351,44 +363,34 @@ class AddReviewForm extends React.Component {
                 </Form.Group>
     }
 
-
-
-
-
-
-
-
-
     return (
       <div>
         <Form id='addReviewForm'>
-        <h3 id='reviewFormTitle'>Write Your Review</h3>
-        <h3 id='reviewFormSubtitle'>About the {this.state.productName}</h3>
-        <Form.Row>
-          <Col>
-            <Form.Group>
-              <Form.Label id='formQuestions'>Username*</Form.Label>
-                <Form.Control name='nickname' maxlength='20' type='text' placeholder='Example: jackson11!' value={this.state.nickname} onChange={this.handleChange} className={this.state.nicknameError ? 'error' : ''}/>
-                <p id='finePrint'>&nbsp;For privacy reasons, do not use your full name or email address</p>
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Label id='formQuestions'>Email*</Form.Label>
-            <Form.Group>
-              <Form.Control name='email' maxlength='60' required value={this.state.email} type='email' placeholder='Example: jackson11@email.com' onChange={this.handleChange} className={this.state.emailError ? 'error' : ''}/>
-              {/* <p id='emailError'>{this.state.emailError ? 'Enter Value Email' : ''}</p> */}
-              <p id='finePrint'>&nbsp;For authentication reasons, you will not be emailed</p>
-             
-            </Form.Group>
-          </Col>
-        </Form.Row>
+          <h3 id='reviewFormTitle'>Write Your Review</h3>
+          <h3 id='reviewFormSubtitle'>About the {this.state.productName}</h3>
+          <Form.Row>
+            <Col>
+              <Form.Group>
+                <Form.Label id='formQuestions'>Username*</Form.Label>
+                  <Form.Control name='nickname' maxlength='20' type='text' placeholder='Example: jackson11!' value={this.state.nickname} onChange={this.handleChange} className={this.state.nicknameError ? 'error' : ''}/>
+                  <p id='finePrint'>&nbsp;For privacy reasons, do not use your full name or email address</p>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Label id='formQuestions'>Email*</Form.Label>
+              <Form.Group>
+                <Form.Control name='email' maxlength='60' required value={this.state.email} type='email' placeholder='Example: jackson11@email.com' onChange={this.handleChange} className={this.state.emailError ? 'error' : ''}/>
+                <p id='finePrint'>&nbsp;For authentication reasons, you will not be emailed</p>
+              </Form.Group>
+            </Col>
+          </Form.Row>
           <Form.Group>
             <Form.Row>
             <br></br>
             <Form.Label className={this.state.starsError ? 'error' : ''} id='formQuestionsRadio'>What is your overall rating of this product?*&nbsp; &nbsp; &nbsp;</Form.Label>
-              <br></br>
-              <ShowStarRating handleStarClick={this.handleStarClick = this.handleStarClick.bind(this)}/> <p id='starRatingLabel'>{this.state.starRatingLabel}</p>
-              </Form.Row>
+            <br></br>
+            <ShowStarRating handleStarClick={this.handleStarClick = this.handleStarClick.bind(this)}/> <p id='starRatingLabel'>{this.state.starRatingLabel}</p>
+            </Form.Row>
           </Form.Group>
           <Form.Group>
             <Form.Label inline  id='formQuestions' className={this.state.doRecommendError ? 'error' : ''}>Do You Recommend This Product?*&nbsp; &nbsp; &nbsp;</Form.Label>
@@ -425,10 +427,10 @@ class AddReviewForm extends React.Component {
             {photoFour}
             {photoFive}
           </Form.Row>
-           <p id='requiredField'>* = required</p>
-           <Form.Row>
-          {reviewSent}
-           </Form.Row>
+            <p id='requiredField'>* = required</p>
+          <Form.Row>
+            {reviewSent}
+          </Form.Row>
         </Form>
       </div>
     )

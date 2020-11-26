@@ -5,7 +5,6 @@ import Parse from './Parse.js';
 import MainReviewPanel from './components/MainReviewPanel.jsx';
 import ProductMeta from './components/ProductMeta.jsx';
 import AddReviewForm from './components/AddReviewForm.jsx';
-import StarRating from './components/StarRating.jsx';
 import '../dist/style.css'
 import Search from './components/Search.jsx';
 
@@ -20,16 +19,15 @@ class ReviewApp extends React.Component {
       numberOfReviews: '',
       addReview: 0,
       meta: {},
+      productList: [],
       sortName: 'relevance',
-      starFilterLabel: 'All Stars',
+      filterOn: false,
       starFilter: [],
       1: false,
       2: false,
       3: false,
       4: false,
       5: false,
-      productList: [],
-      filterOn: false,
     }
     this.handleMoreReviews = this.handleMoreReviews.bind(this);
     this.handleAddReview = this.handleAddReview.bind(this);
@@ -225,7 +223,6 @@ class ReviewApp extends React.Component {
   }
 
   handleClearFilter(stars) {
-    console.log(stars)
     if(stars === undefined) {
       const array = [];
       this.setState({stars: array})
@@ -292,53 +289,57 @@ class ReviewApp extends React.Component {
     return ( 
       <div>
         <br></br>
-          <br></br>
+        <br></br>
         <Container>
-        <Row>
-          <Col id='reviewAppHeading'>
-            <h3 id='reviewAppHeading'>RATINGS & REVIEWS</h3>
-          </Col>
-        </Row>
-        <Row>
-          <Col xl={4}>
-            <div id='productMeta'></div>
-          </Col>
-          <Col fluid> 
-            <Row id='reviewPannelHeader'> 
+          <Row>
+            <Col id='reviewAppHeading'>
+              <h3 id='reviewAppHeading'>
+                RATINGS & REVIEWS
+              </h3>
+            </Col>
+          </Row>
+          <Row>
+            <Col xl={4}>
+              <div id='productMeta'></div>
+            </Col>
+            <Col fluid> 
+              <Row id='reviewPannelHeader'> 
+                <br></br>
+                <Col id='sortDropdown' fluid>
+                  <Row id='sort'>
+                    <h3 id='sortTitle'>{numberOfReviews} {this.state.numberOfReviews === 1 ? 'review' : 'reviews'}, sorted by&nbsp; </h3>
+                    <DropdownButton id="dropdown-item-button" title={this.state.sortName}>
+                      <Dropdown.Item onClick={() => this.handleSort('helpfulness')}>Helpfulness</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.handleSort('relevance')}>Relevance</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.handleSort('newest')}>Newest</Dropdown.Item>
+                    </DropdownButton>
+                  </Row>
+                </Col>
+                <Col id='starFilter'>
+                  <Row id='starFilter'> 
+                    <Search handleSearch={this.handleSearch}/>
+                  </Row>
+                </Col>
+              </Row>
+              <Row id='starFilter'> 
+                <p id='clearFilter'>{filterTitle} {clearFiveStar} &nbsp; {clearFourStar} &nbsp; {clearThreeStar} &nbsp; {clearTwoStar} &nbsp; {clearOneStar} &nbsp; {clearAll}</p>
+              </Row>
+              <div id='reviewPannel'></div>
               <br></br>
-              <Col id='sortDropdown' fluid>
-                <Row id='sort'>
-              <h3 id='sortTitle'>{numberOfReviews} {this.state.numberOfReviews === 1 ? 'review' : 'reviews'}, sorted by&nbsp; </h3>
-                <DropdownButton id="dropdown-item-button" title={this.state.sortName}>
-                  <Dropdown.Item onClick={() => this.handleSort('helpfulness')}>Helpfulness</Dropdown.Item>
-                  <Dropdown.Item onClick={() => this.handleSort('relevance')}>Relevance</Dropdown.Item>
-                  <Dropdown.Item onClick={() => this.handleSort('newest')}>Newest</Dropdown.Item>
-                </DropdownButton>
-                </Row>
-              </Col>
-              <Col id='starFilter'>
-                <Row id='starFilter'> 
-                  <Search handleSearch={this.handleSearch}/>
-                </Row>
-              </Col>
-            </Row>
-            <Row id='starFilter'> 
-              <p id='clearFilter'>{filterTitle} {clearFiveStar} &nbsp; {clearFourStar} &nbsp; {clearThreeStar} &nbsp; {clearTwoStar} &nbsp; {clearOneStar} &nbsp; {clearAll}</p>
-            </Row>
-            <div id='reviewPannel'></div>
-            <br></br>
-            <br></br>
+              <br></br>
               {showMoreReviews} &nbsp; &nbsp; &nbsp; &nbsp;
-              <Button id='reviewButton' onClick={this.handleAddReview}> Add A Review &nbsp;&nbsp;&#43; </Button>
-            <br></br>
-            <br></br>
-            <br></br>
-            <div id='reviewForm'>
-            </div>
-            <br></br> 
-          </Col>
-        </Row>
-      </Container>
+              <Button id='reviewButton' onClick={this.handleAddReview}>
+                Add A Review &nbsp;&nbsp;&#43; 
+              </Button>
+              <br></br>
+              <br></br>
+              <br></br>
+              <div id='reviewForm'>
+              </div>
+              <br></br> 
+            </Col>
+          </Row>
+        </Container>
       </div>
   );
   }

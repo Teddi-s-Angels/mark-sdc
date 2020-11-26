@@ -1,10 +1,8 @@
 import React from 'react';
-import { FaCaretDown } from 'react-icons/fa'
 
 const IconProgress = (props) => {
     
   const progress = props.value;
-  const width = props.width;
 
   const progressContainerStyle = {
     height: 10,
@@ -15,6 +13,37 @@ const IconProgress = (props) => {
     marginLeft: 0,
     marginRight: 0,
     position: 'relative'
+  }
+
+  const markerList = {
+    listStyle: 'none',
+    margin: 0,
+    padding: 0,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    width: '100%',
+  }                  
+
+  const marker = {
+    position: 'absolute',
+    top: 0,
+    width: 10,
+    height: '100%',
+    backgroundColor: 'white',
+    marginLeft: '33%',
+    zIndex: 1,
+  }
+
+  const marker2 = {
+    position: 'relative',
+    top: 0,
+    width: 10,
+    height: '100%',
+    backgroundColor: 'white',
+    marginLeft: '66%',
+    zIndex: 1,
   }
 
   const progressFillerStyle = {
@@ -28,37 +57,7 @@ const IconProgress = (props) => {
     zIndex: 3,
     position: 'absolute'
   }
-
-  const marker = {
-    position: 'absolute',
-    top: 0,
-    width: 10,
-    height: '100%',
-    backgroundColor: 'white',
-    marginLeft: '33%',
-    zIndex: 1,
-  }
-
-  const markerList = {
-    listStyle: 'none',
-    margin: 0,
-    padding: 0,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
-    width: '100%',
-  }
-
-  const marker2 = {
-    position: 'relative',
-    top: 0,
-    width: 10,
-    height: '100%',
-    backgroundColor: 'white',
-    marginLeft: '66%',
-    zIndex: 1,
-  }
+  
   const icon = {
     fontSize: 25,
     top: 0,

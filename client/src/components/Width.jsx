@@ -13,21 +13,23 @@ class Width extends React.Component {
     return(
       <div>
         <Col>
-        <Row id = 'characteristicsTitle'>Width:</Row>
-        <Row fluid>
-          <IconProgress width={100} value={(this.state.width * 20)} />
-        </Row>
-        <Row fluid id = 'characteristicsLabels'>
-          <Col id='characteristicsLeft'>
-            Too Tight
-          </Col>
-          <Col id='characteristicsMiddle'>
-            Perfect
-          </Col>
-          <Col id='characteristicsRight'>
-            Too Wide
-          </Col>
-        </Row>
+          <Row id = 'characteristicsTitle'>
+            Width:
+          </Row>
+          <Row fluid>
+            <IconProgress width={100} value={(this.state.width * 20)} />
+          </Row>
+          <Row fluid id = 'characteristicsLabels'>
+            <Col id='characteristicsLeft'>
+              Too Tight
+            </Col>
+            <Col id='characteristicsMiddle'>
+              Perfect
+            </Col>
+            <Col id='characteristicsRight'>
+              Too Wide
+            </Col>
+          </Row>
         </Col>
       </div> 
     )

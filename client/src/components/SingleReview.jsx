@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import StarRating from './StarRating.jsx';
 import Parse from '../Parse.js';
@@ -11,19 +10,19 @@ class SingleReview extends React.Component {
     super(props);
     this.state = {
       reviewId: props.review.review_id,
-      body: props.review.body, 
-      bodyPreview: props.review.body.slice(0, 250),
-      date: props.review.date.slice(0, 10), 
-      helpfulness: props.review.helpfulness,
-      photos: props.review.photos,
       rating: props.review.rating,
-      recommend: props.review.recommend,
-      didRecommend: '',
-      response: props.review.response,
+      date: props.review.date.slice(0, 10),
       reviewerName: props.review.reviewer_name,
       summary: props.review.summary,
-      isHelpful: 0,
+      bodyPreview: props.review.body.slice(0, 250),
       readMore: false,
+      body: props.review.body, 
+      recommend: props.review.recommend,
+      photos: props.review.photos,
+      didRecommend: '',
+      helpfulness: props.review.helpfulness,
+      response: props.review.response,
+      isHelpful: 0,
       didReport: false,
       photoLightboxTriggered: false,
       lightboxId: null,
@@ -135,7 +134,7 @@ class SingleReview extends React.Component {
       <Container id='review' fluid>
         <Row>
           <Col id='reviewPanelStars'>
-          <StarRating starDimension={17} rating={this.state.rating} />
+            <StarRating starDimension={17} rating={this.state.rating} />
           </Col>
           <Col id='date'>
             <br></br>
@@ -143,10 +142,14 @@ class SingleReview extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col id='summary'><p>{this.state.summary}</p></Col>
+          <Col id='summary'>
+            <p>{this.state.summary}</p>
+          </Col>
         </Row>
         <Row>
-          <Col id='body'><p>{this.state.readMore ? this.state.body : this.state.bodyPreview} <a id='readMore' onClick={this.showMore}><b>{this.state.readMore ? '' : '... Read More'}</b></a></p></Col>
+          <Col id='body'>
+            <p>{this.state.readMore ? this.state.body : this.state.bodyPreview} <a id='readMore' onClick={this.showMore}><b>{this.state.readMore ? '' : '... Read More'}</b></a></p>
+          </Col>
         </Row>
         <Row>
           <Col id='didRecommend'>{recommend}</Col>
@@ -162,7 +165,7 @@ class SingleReview extends React.Component {
           </Col>
         </Row>
         <Row>
-        <p id='helpful'>&nbsp;&nbsp;&nbsp; Helpful? &nbsp;<u><a className='helpful' onClick={this.handleClick}>Yes</a></u> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;  {reported} </p>
+          <p id='helpful'>&nbsp;&nbsp;&nbsp; Helpful? &nbsp;<u><a className='helpful' onClick={this.handleClick}>Yes</a></u> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;  {reported} </p>
         </Row>
       </Container>
     )

@@ -11,7 +11,7 @@ const Parse = {
       data: {},
       success: successCB,
       error: errorCB || function() {
-        console.error('Failed to fetch list of reviews from Greenfield')
+        console.error('Failed to fetch list of reviews sorted by relevance from Greenfield')
       }
     });
   },
@@ -23,7 +23,7 @@ const Parse = {
       data: {},
       success: successCB,
       error: errorCB || function() {
-        console.error('Failed to fetch list of reviews from Greenfield')
+        console.error('Failed to fetch list of reviews sorted by helpfulness from Greenfield')
       }
     });
   },
@@ -35,7 +35,7 @@ const Parse = {
       data: {},
       success: successCB,
       error: errorCB || function() {
-        console.error('Failed to fetch list of reviews from Greenfield')
+        console.error('Failed to fetch list of reviews sorted by newest from Greenfield')
       }
     });
   },
@@ -59,7 +59,7 @@ const Parse = {
       data: {},
       success: successCB,
       error: errorCB || function() {
-        console.error('Failed to mark review as helpful from Greenfield')
+        console.error('Failed to mark review as helpful on Greenfield')
       }
     })
   },
@@ -71,7 +71,7 @@ const Parse = {
       data: obj,
       success: successCB,
       error: errorCB || function() {
-        console.error('Failed to fetch meta of reviews from Greenfield')
+        console.error('Error when submiting review on Greenfield')
       }
     });
   },
@@ -83,7 +83,7 @@ const Parse = {
       data: {},
       success: successCB,
       error: errorCB || function() {
-        console.error('Failed to fetch list of reviews from Greenfield')
+        console.error('Failed to fetch list of products from Greenfield')
       }
     });
   },
@@ -95,7 +95,7 @@ const Parse = {
       data: {},
       success: successCB,
       error: errorCB || function() {
-        console.error('Failed to mark review as helpful from Greenfield')
+        console.error('Failed to report review on Greenfield')
       }
     })
   },
