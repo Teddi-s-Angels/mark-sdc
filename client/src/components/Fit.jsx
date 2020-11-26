@@ -12,7 +12,7 @@ class Fit extends React.Component {
   render() {
     return(
       <div>
-        <Col fluid>
+        <Col>
         <Row id = 'characteristicsTitle'>Fit</Row>
         <Row fluid>
           <IconProgress width={100} value={(this.state.fit * 20)} />

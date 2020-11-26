@@ -12,7 +12,7 @@ class Size extends React.Component {
   render() {
     return(
       <div>
-        <Col xl={11}>
+        <Col>
         <Row id = 'characteristicsTitle'>Size:</Row>
         <Row fluid>
           <IconProgress width={100} value={(this.state.size * 20)} />

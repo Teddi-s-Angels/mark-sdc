@@ -12,7 +12,7 @@ class Comfort extends React.Component {
   render() {
     return(
       <div>
-        <Col fluid>
+        <Col>
         <Row id = 'characteristicsTitle'>Comfort:
         </Row>
         <Row fluid>

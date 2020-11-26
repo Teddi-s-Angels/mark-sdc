@@ -12,7 +12,7 @@ class Width extends React.Component {
   render() {
     return(
       <div>
-        <Col xl={11}>
+        <Col>
         <Row id = 'characteristicsTitle'>Width:</Row>
         <Row fluid>
           <IconProgress width={100} value={(this.state.width * 20)} />

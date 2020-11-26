@@ -8,7 +8,7 @@ const IconProgress = (props) => {
 
   const progressContainerStyle = {
     height: 10,
-    width: `100%`,
+    width: `98%`,
     backgroundColor: '#e0e0de',
     borderRadius: 0,
     margin: 7,
