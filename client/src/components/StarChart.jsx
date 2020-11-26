@@ -18,6 +18,11 @@ class StarChart extends React.Component {
       threeStarCount: props.ratings[3],
       fourStarCount: props.ratings[4],
       fiveStarCount: props.ratings[5],
+      fiveStarHover: false,
+      fourStarHover: false,
+      threeStarHover: false,
+      twoStarHover: false,
+      oneStarHover: false,
     }
     this.getStarReviews = props.getStarReviews.bind(this)
   }
@@ -28,20 +33,40 @@ class StarChart extends React.Component {
         <div id='starProgress'>
           <Row>
             <Col>
-              <Row>
-                <a id='starFilterLink' onClick={() => this.getStarReviews(5)}>5 Stars</a>  <ProgressBar value={this.state.fiveStars} width={70} color='#00ff00' /> {this.state.fiveStarCount}
+              <Row fluid>
+                <a id='starFilterLink' 
+                onClick={() => this.getStarReviews(5)}
+                onMouseEnter={() => this.setState({fiveStarHover: true})}
+                onMouseLeave={() => this.setState({fiveStarHover: false})}
+                ><u>5 Stars</u>  <ProgressBar value={this.state.fiveStars} width={70} color={this.state.fiveStarHover ? '#0063a7' : '#77dd77'} /> {this.state.fiveStarCount} </a>
               </Row>
               <Row>
-                <a id='starFilterLink' onClick={() => this.getStarReviews(4)}>4 Stars</a>  <ProgressBar value={this.state.fourStars} width={70} color='#00ff00' /> {this.state.fourStarCount}
+                <a id='starFilterLink'
+                onClick={() => this.getStarReviews(4)}
+                onMouseEnter={() => this.setState({fourStarHover: true})}
+                onMouseLeave={() => this.setState({fourStarHover: false})}
+                ><u>4 Stars</u>  <ProgressBar value={this.state.fourStars} width={70} color={this.state.fourStarHover ? '#0063a7' : '#77dd77'} /> {this.state.fourStarCount}</a>
+              </Row>
+              <Row> 
+                <a id='starFilterLink' value={3} 
+                onClick={() => this.getStarReviews(3)}
+                onMouseEnter={() => this.setState({threeStarHover: true})}
+                onMouseLeave={() => this.setState({threeStarHover: false})}
+                ><u>3 Stars</u>  <ProgressBar value={this.state.threeStars} width={70} color={this.state.threeStarHover ? '#0063a7' : '#77dd77'}/> {this.state.threeStarCount}</a>
               </Row>
               <Row>
-                <a id='starFilterLink' value={3} onClick={() => this.getStarReviews(3)}>3 Stars</a>  <ProgressBar value={this.state.threeStars} width={70} color='#00ff00'/> {this.state.threeStarCount}
+                <a id='starFilterLink'
+                onClick={() => this.getStarReviews(2)}
+                onMouseEnter={() => this.setState({twoStarHover: true})}
+                onMouseLeave={() => this.setState({twoStarHover: false})}
+                ><u>2 Stars</u>  <ProgressBar value={this.state.twoStars} width={70} color={this.state.twoStarHover ? '#0063a7' : '#77dd77'} /> {this.state.twoStarCount}</a>
               </Row>
               <Row>
-                <a id='starFilterLink' onClick={() => this.getStarReviews(2)}>2 Stars</a>  <ProgressBar value={this.state.twoStars} width={70} color='#00ff00' />{this.state.twoStarCount}
-              </Row>
-              <Row>
-                <a id='starFilterLinkOne' onClick={() => this.getStarReviews(1)}>1 Stars</a> <ProgressBar value={this.state.oneStars} width={70} color='#00ff00'/> {this.state.oneStarCount}
+                <a id='starFilterLink' 
+                onClick={() => this.getStarReviews(1)}
+                onMouseEnter={() => this.setState({oneStarHover: true})}
+                onMouseLeave={() => this.setState({oneStarHover: false})}
+                ><u>1 Stars</u>   <ProgressBar  value={this.state.oneStars} width={70} color={this.state.oneStarHover ? '#0063a7' : '#77dd77'} margin={2}/> {this.state.oneStarCount}</a>
               </Row>
             </Col>
           </Row>
@@ -49,7 +74,7 @@ class StarChart extends React.Component {
       </Container>
     )
   }
-
-};
+ 
+}
 
 export default StarChart;

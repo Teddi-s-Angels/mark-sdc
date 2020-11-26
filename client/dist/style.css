@@ -237,6 +237,14 @@
   text-align: right;
 }
 
+#starFilter {
+  font-size: 15px;
+  margin-left: -10px;
+  align-content: right;
+  float: right;
+  text-align: right;
+}
+
 a {
   cursor: pointer;
 }
@@ -285,14 +293,17 @@ path {
 }
 
 #starFilterLink {
-  text-decoration: underline;
   cursor: pointer;
+  width: 100%;
+  display: inline;
+
 }
 
 #starFilterLinkOne {
-  text-decoration: underline;
+  margin-left: 5px;
   cursor: pointer;
-  margin-right: 3px;
+  width: 100%;
+  display: inline;
 }
 
 #thumbnailReviewImage {
