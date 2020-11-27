@@ -225,7 +225,7 @@ class ReviewApp extends React.Component {
   handleClearFilter(stars) {
     if(stars === undefined) {
       const array = [];
-      this.setState({stars: array})
+      this.setState({starFilter: array})
       for (var i = 1; i < 6; i++) {
         this.setState({[i]: false})
       }
@@ -249,6 +249,7 @@ class ReviewApp extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     let clearFiveStar;
     if(this.state[5]) {
       clearFiveStar = <u><a value={5} onClick={() => this.handleClearFilter(5)}>5 Stars</a></u>
@@ -273,7 +274,7 @@ class ReviewApp extends React.Component {
     let filterTitle;
     if(this.state[1] || this.state[2] || this.state[3] || this.state[4] || this.state[5]) {
       clearAll = <u><a onClick={() => this.handleClearFilter()}>Clear All</a></u>
-      filterTitle = 'Rating Breakdown: '
+      filterTitle = <b>Rating Breakdown: &nbsp;</b>
 
     }
 
