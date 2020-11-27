@@ -165,7 +165,7 @@ class SingleReview extends React.Component {
           </Col>
         </Row>
         <Row>
-          <p id='helpful'>&nbsp;&nbsp;&nbsp; Helpful? &nbsp;<u><a className='helpful' onClick={this.handleClick}>Yes</a></u> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;  {reported} </p>
+          <p id='helpful'>Helpful? &nbsp;<u><a className='helpful' onClick={this.handleClick}>Yes</a></u> ({this.state.helpfulness}) &nbsp; &nbsp;| &nbsp; &nbsp;  {reported} </p>
         </Row>
       </Container>
     )

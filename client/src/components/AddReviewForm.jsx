@@ -376,7 +376,7 @@ class AddReviewForm extends React.Component {
     let fitError;
 
     if(this.state.starsError === true || this.state.doRecommendError === true || this.state.nicknameError === true || this.state.bodyError === true || this.state.qualityError === true || this.state.comfortError === true || this.state.sizeError === true || this.state.lengthError === true || this.state.widthError === true || this.state.fitError === true || this.state.emailError === true ) {
-      requirementsHeader = <ul id='errorMessage'>Correct the Following:</ul>
+      requirementsHeader = <ul id='errorMessageHeader'>Correct the Following:</ul>
     }
     
     if(this.state.starsError) {
