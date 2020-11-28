@@ -161,7 +161,7 @@ class SingleReview extends React.Component {
     let response;
 
     if(this.state.response) {
-      response = <Col id='response'><p>{this.state.response}</p></Col>
+      response = <Col id='response'><p>Response from seller: {this.state.response}</p></Col>
     }
 
     let reported;
@@ -175,6 +175,7 @@ class SingleReview extends React.Component {
     if(this.state.photoLightboxTriggered) {
       photoLightbox = <Lightbox mainSrc={this.state.photos[this.state.lightboxId].url} onCloseRequest={() => this.setState({ photoLightboxTriggered: false })}/>
     }
+
     return (
       <Container id='review' fluid>
         <Row>

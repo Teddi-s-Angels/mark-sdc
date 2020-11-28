@@ -171,6 +171,8 @@ class ReviewApp extends React.Component {
     ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
 
     ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
+    const element = document.getElementById('reviewPannel')
+    element.scrollTop = element.scrollHeight
   }
 
   handleAddReview() {
@@ -311,7 +313,7 @@ class ReviewApp extends React.Component {
                 </Col>
                 <Col id='starFilter'>
                   <Row id='starFilter'> 
-                    <Search handleSearch={this.handleSearch}/>
+                    {/* <Search handleSearch={this.handleSearch}/> */}
                   </Row>
                 </Col>
               </Row>
@@ -319,6 +321,7 @@ class ReviewApp extends React.Component {
                 <p id='clearFilter'>{filterTitle} {clearFiveStar} {clearFourStar} {clearThreeStar}  {clearTwoStar} {clearOneStar} {clearAll}</p>
               </Row>
               <div id='reviewPannel'></div>
+              <div id='reviewPannelBottom'></div>
               <br></br>
               <br></br>
               {showMoreReviews} &nbsp; &nbsp; &nbsp; &nbsp;
