@@ -71,6 +71,38 @@ a {
 #didRecommend {
   font-size: 15px;
   padding-left: 0px;
+  padding-bottom: 10px;
+}
+
+#response {
+  background-color: grey;
+  color: black;
+  font-weight: 500;
+}
+
+#photos {
+  font-size: 15px;
+  padding-left: 0px;
+  margin-left: 0px;
+  text-align: left;
+  padding-bottom: 0px;
+  margin-bottom: 2px;
+}
+
+#reviewThumbnailPhoto {
+  padding-left: 0px;
+}
+
+#thumbnailReviewImage {
+  margin-right: 10px;
+  height: 100px;
+  max-width: 125px;
+  width: auto;
+  cursor: pointer;
+}
+
+#review {
+  overflow: hidden;
 }
 
 #helpful {
@@ -85,19 +117,8 @@ a {
   text-decoration: underline;
 }
 
-#reviewThumbnailPhoto {
-  padding-left: 0px;
-}
-
-#thumbnailReviewImage {
-  height: 100px;
-  max-width: 125px;
-  width: auto;
-  cursor: pointer;
-}
-
-#review {
-  overflow: hidden;
+#helpfulAndReport {
+  padding-top: 10px;
 }
 
 /* Review Summary (Left Column) */
@@ -284,9 +305,15 @@ a {
   width: 10px;
 }
 
+#addPhotoButton {
+  background-color:lightgray;
+  color: black;
+  border: 1px solid black;
+}
+
 #photoInput {
   margin-left: 4px;
-  width: 89%;
+  width: 88%;
 }
 
 #imageThumbnail {
@@ -309,6 +336,7 @@ a {
 
 #requiredField {
   text-align: right;
+  margin-bottom: 3px;
 }
 
 #errorMessageHeader {
@@ -326,5 +354,12 @@ a {
 }
 
 #submitReviewButton {
-  padding-top: 15px;
+  border-radius: 0;
+  margin-left: 3px;
+  padding: 15px;
+  background-color:#606060;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  border: 1px solid black;
 }

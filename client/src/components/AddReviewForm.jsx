@@ -181,7 +181,7 @@ class AddReviewForm extends React.Component {
 
   handlePhotos(e) {
     e.preventDefault();
-    const ArrayURL = this.state.photoURL.split(' ')
+    const ArrayURL = this.state.photoURL.split(' ');
     let newState = this.state.photos.concat(ArrayURL);
     this.setState({photos: newState});
     this.setState({photoURL: ''});
@@ -189,7 +189,7 @@ class AddReviewForm extends React.Component {
 
   handleSubmit() {
     if(this.state.starsError === true || this.state.doRecommendError === true || this.state.nicknameError === true || this.state.bodyError === true || this.state.qualityError === true || this.state.comfortError === true || this.state.sizeError === true || this.state.lengthError === true || this.state.widthError === true || this.state.fitError === true || this.state.emailError === true ) {
-      return
+      return;
     }
 
     const sizeId = this.state.meta.Size ? this.state.meta.Size.id : null;
@@ -219,17 +219,6 @@ class AddReviewForm extends React.Component {
       characteristicsObj[widthId] = this.state.width
     }
 
-    // let characteristicsObj = {
-    //   [sizeId]: this.state.size,
-    //   [widthId]: this.state.width,
-    //   [comfortId]: this.state.comfort,
-    //   [qualityId]: this.state.quality,
-    //   [fitId]: this.state.fit,
-    //   [lengthId]: this.state.length
-    // }
-
-    console.log(characteristicsObj)
-
     const body = {
       rating: this.state.stars,
       summary: this.state.summary,
@@ -239,21 +228,20 @@ class AddReviewForm extends React.Component {
       email: this.state.email,
       photos: this.state.photos,
       characteristics: characteristicsObj
-    }
+    };
 
-  //   if(this.state.sentReview) {
-  //     return
-  //   } else {
-  //     Parse.submitReview(JSON.stringify(body), (err, result) => {
-  //       if(err) {
-  //         console.log(err)
-  //       } else {
-  //         console.log(result)
-  //       }
-  //     })
-  //     this.setState({sentReview: true})
-  //   }
-  //   console.log(this.state)
+    if(this.state.sentReview) {
+      return
+    } else {
+      Parse.submitReview(JSON.stringify(body), (err, result) => {
+        if(err) {
+          console.log(err);
+        } else {
+          console.log(result);
+        }
+      })
+      this.setState({sentReview: true});
+    }
   }
 
   render() {
@@ -261,12 +249,12 @@ class AddReviewForm extends React.Component {
     if(this.state.sentReview) {
       reviewSent = <b>Review Was Sent Successfully</b>
     } else {
-      reviewSent = <Button variant='primary' onClick={this.validate}>Post Review</Button>
+      reviewSent = <Button id='submitReviewButton' onClick={this.validate}>Post Review</Button>
     }
 
     let addPhotoButton;
     if(this.state.photos.length < 5) {
-      addPhotoButton = <Button id='addPhoto' onClick={this.handlePhotos} >Attach</Button>
+      addPhotoButton = <Button id='addPhotoButton' onClick={this.handlePhotos} >Attach</Button>
     }
 
     let photoOne;
@@ -481,7 +469,7 @@ class AddReviewForm extends React.Component {
           {width}
           {fit}
           <Form.Group>
-          <Form.Label id='formQuestions'>Share a Photo of Your Purchase</Form.Label>
+          <Form.Label id='formQuestions'>Share Photos of Your Purchase (max: 5)</Form.Label>
             <Form.Row>
               <Form.Control name='photoURL' type='text' placeholder='Enter Valid URL to Photo' value={this.state.photoURL} onChange={this.handleChange} id='photoInput'/>
               {addPhotoButton}
@@ -507,7 +495,7 @@ class AddReviewForm extends React.Component {
             {lengthError}
             {widthError}
             {fitError}
-          <Form.Row id='submitReviewButton'>
+          <Form.Row>
             {reviewSent}
           </Form.Row>
         </Form>
