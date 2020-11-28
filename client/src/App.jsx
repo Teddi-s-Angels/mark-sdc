@@ -191,23 +191,20 @@ class ReviewApp extends React.Component {
       this.setState({sortName: sortedName})
       if(this.state.starFilter.length === 0) {
         this.getNewestReviews()
-      } else {
-        this.getStarReviews()      
       }
     } else if(sortedName === 'relevance') {
       this.setState({sortName: sortedName})
       if(this.state.starFilter.length === 0) {
         this.getRelevantReviews()
-      } else {
-        this.getStarReviews()      
       }
     } else if(sortedName === 'helpfulness') {
       this.setState({sortName: sortedName})
       if(this.state.starFilter.length === 0) {
         this.getHelpfulReviews()
-      } else {
-        this.getStarReviews()      
       }
+    }
+    if(this.state.starFilter.length > 0) {
+      setTimeout(function() {this.getStarReviews()}.bind(this), 100)
     }
   }
 
@@ -237,8 +234,6 @@ class ReviewApp extends React.Component {
   }
 
   render() {
-    console.log(this.state)
-
     let clearFiveStar;
     if(this.state[5]) {
       clearFiveStar = <a value={5} onClick={() => this.handleClearFilter(5)}><u>5 Stars</u> &nbsp;</a>
