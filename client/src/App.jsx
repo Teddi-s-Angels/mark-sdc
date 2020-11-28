@@ -65,40 +65,25 @@ class ReviewApp extends React.Component {
   }
 
   getNewestReviews() {
-
     Parse.getAllListNewest((data) => {
-
       this.setState({numberOfReviews: data.results.length})
-
       let twoReviews = data.results.splice(0, 2)
-
       this.setState({sortName: 'newest'})
-
       this.setState({reviews: data.results})
-
       this.setState({reviewsToShow: twoReviews})
-
       ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
-
       ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
     });
   }
 
   getHelpfulReviews() {
     Parse.getAllListHelpfulness((data) => {
-
       this.setState({numberOfReviews: data.results.length})
-
       let twoReviews = data.results.splice(0, 2)
-
       this.setState({sortName: 'helpfulness'})
-
       this.setState({reviews: data.results})
-
       this.setState({reviewsToShow: twoReviews})
-
       ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
-
       ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
     });
   }
@@ -134,7 +119,8 @@ class ReviewApp extends React.Component {
         ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
         ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
       })
-    } else if(this.state.sortName === 'newest') {
+    } 
+    if(this.state.sortName === 'newest') {
       Parse.getAllListNewest((data) => {
         let reviewArray = data.results;
         let result = [];
@@ -150,7 +136,8 @@ class ReviewApp extends React.Component {
         ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
         ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
       })
-    } else {
+    } 
+    if(this.state.sortName === 'newest') {
       Parse.getAllListHelpfulness((data) => {
         let reviewArray = data.results;
         let result = [];
@@ -197,23 +184,25 @@ class ReviewApp extends React.Component {
     }
   }
 
-  handleSort(sortName) {
-    if(sortName === 'newest') {
-      this.setState({sortName: sortName})
+  handleSort(sortedName) {
+    console.log(sortedName)
+    console.log(this.state.starFilter)
+    if(sortedName === 'newest') {
+      this.setState({sortName: sortedName})
       if(this.state.starFilter.length === 0) {
         this.getNewestReviews()
       } else {
         this.getStarReviews()      
       }
-    } else if(sortName === 'relevance') {
-      this.setState({sortName: sortName})
+    } else if(sortedName === 'relevance') {
+      this.setState({sortName: sortedName})
       if(this.state.starFilter.length === 0) {
         this.getRelevantReviews()
       } else {
         this.getStarReviews()      
       }
-    } else if(sortName === 'helpfulness') {
-      this.setState({sortName: sortName})
+    } else if(sortedName === 'helpfulness') {
+      this.setState({sortName: sortedName})
       if(this.state.starFilter.length === 0) {
         this.getHelpfulReviews()
       } else {
@@ -245,37 +234,41 @@ class ReviewApp extends React.Component {
 
   handleSearch(query) {
     console.log(query)
-
   }
 
   render() {
     console.log(this.state)
+
     let clearFiveStar;
     if(this.state[5]) {
-      clearFiveStar = <u><a value={5} onClick={() => this.handleClearFilter(5)}>5 Stars</a></u>
+      clearFiveStar = <a value={5} onClick={() => this.handleClearFilter(5)}><u>5 Stars</u> &nbsp;</a>
     }
+
     let clearFourStar;
     if(this.state[4]) {
-      clearFourStar = <u><a value={4} onClick={() => this.handleClearFilter(4)}>4 Stars</a></u>
+      clearFourStar = <a value={4} onClick={() => this.handleClearFilter(4)}><u>4 Stars</u> &nbsp;</a>
     }
+
     let clearThreeStar;
     if(this.state[3]) {
-      clearThreeStar = <u><a value={3} onClick={() => this.handleClearFilter(3)}>3 Stars</a></u>
+      clearThreeStar = <a value={3} onClick={() => this.handleClearFilter(3)}><u>3 Stars</u> &nbsp;</a>
     }
+
     let clearTwoStar;
     if(this.state[2]) {
-      clearTwoStar = <u><a value={2} onClick={() => this.handleClearFilter(2)}>2 Stars</a></u>
+      clearTwoStar = <a value={2} onClick={() => this.handleClearFilter(2)}><u>2 Stars</u> &nbsp;</a>
     }
+
     let clearOneStar;
     if(this.state[1]) {
-      clearOneStar = <u><a value={1} onClick={() => this.handleClearFilter(1)}>1 Star</a></u>
+      clearOneStar = <a value={1} onClick={() => this.handleClearFilter(1)}><u>1 Star</u> &nbsp;</a>
     }
+
     let clearAll;
     let filterTitle;
     if(this.state[1] || this.state[2] || this.state[3] || this.state[4] || this.state[5]) {
-      clearAll = <u><a onClick={() => this.handleClearFilter()}>Clear All</a></u>
+      clearAll = <a onClick={() => this.handleClearFilter()}>&nbsp;<u>Clear All</u></a>
       filterTitle = <b>Rating Breakdown: &nbsp;</b>
-
     }
 
     let numberOfReviews = this.state.numberOfReviews
@@ -285,7 +278,6 @@ class ReviewApp extends React.Component {
     } else {
       showMoreReviews = <Button id='reviewButton' onClick={this.handleMoreReviews} >More Reviews</Button>
     }
-
 
     return ( 
       <div>
@@ -310,9 +302,15 @@ class ReviewApp extends React.Component {
                   <Row id='sort'>
                     <h3 id='sortTitle'>{numberOfReviews} {this.state.numberOfReviews === 1 ? 'review' : 'reviews'}, sorted by&nbsp; </h3>
                     <DropdownButton id="dropdown-item-button" title={this.state.sortName}>
-                      <Dropdown.Item onClick={() => this.handleSort('helpfulness')}>Helpfulness</Dropdown.Item>
-                      <Dropdown.Item onClick={() => this.handleSort('relevance')}>Relevance</Dropdown.Item>
-                      <Dropdown.Item onClick={() => this.handleSort('newest')}>Newest</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.handleSort('helpfulness')}>
+                        Helpfulness
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.handleSort('relevance')}>
+                        Relevance
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.handleSort('newest')}>
+                        Newest
+                      </Dropdown.Item>
                     </DropdownButton>
                   </Row>
                 </Col>
@@ -323,7 +321,7 @@ class ReviewApp extends React.Component {
                 </Col>
               </Row>
               <Row id='starFilter'> 
-                <p id='clearFilter'>{filterTitle} {clearFiveStar} &nbsp; {clearFourStar} &nbsp; {clearThreeStar} &nbsp; {clearTwoStar} &nbsp; {clearOneStar} &nbsp; {clearAll}</p>
+                <p id='clearFilter'>{filterTitle} {clearFiveStar} {clearFourStar} {clearThreeStar}  {clearTwoStar} {clearOneStar} {clearAll}</p>
               </Row>
               <div id='reviewPannel'></div>
               <br></br>

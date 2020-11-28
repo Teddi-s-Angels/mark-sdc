@@ -185,33 +185,50 @@ class AddReviewForm extends React.Component {
     let newState = this.state.photos.concat(ArrayURL);
     this.setState({photos: newState});
     this.setState({photoURL: ''});
-    console.log(this.state.photos)
   }
 
   handleSubmit() {
-
-    console.log(this.state)
-
     if(this.state.starsError === true || this.state.doRecommendError === true || this.state.nicknameError === true || this.state.bodyError === true || this.state.qualityError === true || this.state.comfortError === true || this.state.sizeError === true || this.state.lengthError === true || this.state.widthError === true || this.state.fitError === true || this.state.emailError === true ) {
       return
     }
 
-    //const sizeId = this.state.meta.Size.id ? this.state.meta.Size.id : null;
-    const comfortId = this.state.meta.Comfort.id ? this.state.meta.Comfort.id : null;
-    const fitId = this.state.meta.Fit.id || null;
-    const qualityId = this.state.meta.Quality.id || null;
-    const lengthId = this.state.meta.Length.id || null;
-    //const widthId = this.state.meta.Width.id ? this.state.meta.Width.id : null;
+    const sizeId = this.state.meta.Size ? this.state.meta.Size.id : null;
+    const comfortId = this.state.meta.Comfort ? this.state.meta.Comfort.id : null;
+    const fitId = this.state.meta.Fit ? this.state.meta.Fit.id : null;
+    const qualityId = this.state.meta.Quality ? this.state.meta.Quality.id : null;
+    const lengthId = this.state.meta.Length ? this.state.meta.Length.id : null;
+    const widthId = this.state.meta.Width ? this.state.meta.Width.id : null;
 
-    let characteristicsObj = {
-      //[sizeId]: this.state.size,
-      //[widthId]: this.state.width,
-      [comfortId]: this.state.comfort,
-      [qualityId]: this.state.quality,
-      [fitId]: this.state.fit,
-      [lengthId]: this.state.length
-
+    let characteristicsObj ={}
+    if(sizeId) {
+      characteristicsObj[sizeId] = this.state.size
     }
+    if(comfortId) {
+      characteristicsObj[comfortId] = this.state.comfort
+    }
+    if(fitId) {
+      characteristicsObj[fitId] = this.state.fit
+    }
+    if(qualityId) {
+      characteristicsObj[qualityId] = this.state.quality
+    }
+    if(lengthId) {
+      characteristicsObj[lengthId] = this.state.length
+    }
+    if(widthId) {
+      characteristicsObj[widthId] = this.state.width
+    }
+
+    // let characteristicsObj = {
+    //   [sizeId]: this.state.size,
+    //   [widthId]: this.state.width,
+    //   [comfortId]: this.state.comfort,
+    //   [qualityId]: this.state.quality,
+    //   [fitId]: this.state.fit,
+    //   [lengthId]: this.state.length
+    // }
+
+    console.log(characteristicsObj)
 
     const body = {
       rating: this.state.stars,
@@ -224,19 +241,19 @@ class AddReviewForm extends React.Component {
       characteristics: characteristicsObj
     }
 
-    if(this.state.sentReview) {
-      return
-    } else {
-      Parse.submitReview(JSON.stringify(body), (err, result) => {
-        if(err) {
-          console.log(err)
-        } else {
-          console.log(result)
-        }
-      })
-      this.setState({sentReview: true})
-    }
-    console.log(this.state)
+  //   if(this.state.sentReview) {
+  //     return
+  //   } else {
+  //     Parse.submitReview(JSON.stringify(body), (err, result) => {
+  //       if(err) {
+  //         console.log(err)
+  //       } else {
+  //         console.log(result)
+  //       }
+  //     })
+  //     this.setState({sentReview: true})
+  //   }
+  //   console.log(this.state)
   }
 
   render() {
