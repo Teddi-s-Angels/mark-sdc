@@ -171,6 +171,7 @@ class ReviewApp extends React.Component {
     ReactDOM.unmountComponentAtNode(document.getElementById('reviewPannel'))
 
     ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
+
     const element = document.getElementById('reviewPannel')
     element.scrollTop = element.scrollHeight
   }
@@ -273,7 +274,7 @@ class ReviewApp extends React.Component {
     if(this.state.reviews.length === 0) {
       showMoreReviews = ''
     } else {
-      showMoreReviews = <Button id='reviewButton' onClick={this.handleMoreReviews} >More Reviews</Button>
+      showMoreReviews = <Button id='reviewButton' onClick={this.handleMoreReviews} >MORE REVIEWS</Button>
     }
 
     return ( 
@@ -326,7 +327,7 @@ class ReviewApp extends React.Component {
               <br></br>
               {showMoreReviews} &nbsp; &nbsp; &nbsp; &nbsp;
               <Button id='reviewButton' onClick={this.handleAddReview}>
-                Add A Review &nbsp;&nbsp;&#43; 
+                ADD A REVIEW &nbsp;&nbsp; +
               </Button>
               <br></br>
               <br></br>
