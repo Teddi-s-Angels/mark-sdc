@@ -137,7 +137,7 @@ class ReviewApp extends React.Component {
         ReactDOM.render(<MainReviewPanel reviews={this.state.reviewsToShow} />, document.getElementById('reviewPannel'))
       })
     } 
-    if(this.state.sortName === 'newest') {
+    if(this.state.sortName === 'helpfulness') {
       Parse.getAllListHelpfulness((data) => {
         let reviewArray = data.results;
         let result = [];
@@ -207,7 +207,7 @@ class ReviewApp extends React.Component {
       }
     }
     if(this.state.starFilter.length > 0) {
-      setTimeout(function() {this.getStarReviews()}.bind(this), 100)
+      setTimeout(function() {this.getStarReviews()}.bind(this), 500)
     }
   }
 
@@ -274,8 +274,8 @@ class ReviewApp extends React.Component {
     if(this.state.reviews.length === 0) {
       showMoreReviews = ''
     } else {
-      showMoreReviews = <Button id='reviewButton' onClick={this.handleMoreReviews} >MORE REVIEWS</Button>
-    }
+      showMoreReviews = <Button id='reviewButton' onClick={this.handleMoreReviews} >MORE REVIEWS </Button>
+    } 
 
     return ( 
       <div>
