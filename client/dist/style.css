@@ -11,20 +11,12 @@ a {
 }
 
 
-#reviewButton {
-  border-radius: 0;
-  padding: 15px;
-  background-color: white;
-  color: 	#606060;
-  font-size: 17px;
-  font-weight: 600;
-  border: 1px solid black;
-}
-
 #searchBar {
   margin-top: 5px;
   margin-right: 6px;
 }
+
+/* Review Area */
 
 #reviewPannel {
   width: 100%;
@@ -37,6 +29,21 @@ a {
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent; /* make scrollbar transparent */
+}
+
+::-webkit-scrollbar.hover {
+  width: 1px;
+  background: black; /* make scrollbar transparent */
+}
+
+#reviewButton {
+  border-radius: 0;
+  padding: 15px;
+  background-color: white;
+  color: 	#606060;
+  font-size: 17px;
+  font-weight: 600;
+  border: 1px solid black;
 }
 
 /* Review Tiles */

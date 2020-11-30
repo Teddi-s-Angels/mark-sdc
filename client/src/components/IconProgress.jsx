@@ -51,7 +51,6 @@ const IconProgress = (props) => {
     height: 0,
     width: 10,
     marginLeft: `${progress}%`,
-    borderRadius: 'inherit',
     padding: 0,
     marginTop: 0,
     zIndex: 3,
@@ -63,6 +62,7 @@ const IconProgress = (props) => {
     top: 0,
     marginTop: -12,
     zIndex: 2,
+    borderRadius: 0,
   }
 
   return (
@@ -72,7 +72,7 @@ const IconProgress = (props) => {
           <li style={marker2}></li>
         </ul>
         <div style={progressFillerStyle}>
-        <p style={icon}>&#9660;</p>
+        <p style={icon}>&#x25BC;</p>
       </div>
     </div>
   )
