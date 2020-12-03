@@ -36,13 +36,8 @@ CREATE DATABASE reviews;
 USE reviews;
 
 CREATE TABLE IF NOT EXISTS productReviews (
-  product INTEGER NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
-  page INTEGER,
-  count INTEGER,
-);
-
-CREATE TABLE IF NOT EXISTS productReviewsResults (
   review_id INTEGER NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+  product INTEGER NOT NULL,
   rating INTEGER,
   summary TEXT,
   recommend INTEGER,
@@ -52,18 +47,13 @@ CREATE TABLE IF NOT EXISTS productReviewsResults (
   reviewer_name TEXT,
   helpfulness INTEGER,
   product INTEGER,
-  CONSTRAINT fk_productReviews
-    FOREIGN KEY(product)
-      REFERENCES productReviews(product)
 )
 
-CREATE TABLE IF NOT EXISTS productReviewsResultsPhotos (
+CREATE TABLE IF NOT EXISTS productReviewsPhotos (
   id INTEGER NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
   url TEXT,
   review_id INTEGER,
-  CONSTRAINT fk_productReviewsResultsPhotos
-    FOREIGN KEY(review_id)
-      REFERENCES productReviewsResults(review_id)
+  FOREIGN KEY (review_id) REFERENCES productReviews(review_id)
 )
 
 CREATE TABLE IF NOT EXISTS metaReviews (
