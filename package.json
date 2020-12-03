@@ -30,6 +30,7 @@
     "express": "^4.17.1",
     "jest": "^26.6.3",
     "jquery": "^3.5.1",
+    "lorem-ipsum": "^2.0.3",
     "nodemon": "^2.0.6",
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-star-rating": "^3.5.5-alpha.0.3",
