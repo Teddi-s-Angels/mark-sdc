@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+/dbms_server/fakeReviews.csv
+/dbms_server/fakeReviewsPhotos.csv
+
 # User-specific files
 *.rsuser
 *.suo
