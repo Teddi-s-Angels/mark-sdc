@@ -1,3 +1,4 @@
+console.time('data creation time');
 const fs = require('fs');
 const faker = require('faker');
 
@@ -6,27 +7,30 @@ const faker = require('faker');
 //C:\Users\Mark\Documents\GitHub\nate-fec\dbms_server\tmp\fakeReviewsPhotos\fakeReviews*.csv
 
 let writeBlock = 0;
-let numOfReviews = 10;
+let numOfReviews = 1000000;
 let maxReviewPhotosPerReview = 3;
-let numOfProducts = 1000000;
+let numOfProducts = 1000;
 
-async function writeToFile(string1, string2, block) {
-  await fs.writeFile(`./tmp/fakeReviews/fakeReviews${block}.csv`, string1, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(`write reviews file ${block} success!`);
-    }
-  });
+// async function writeToFile(string1, string2, block) {
+//   await fs.writeFile(`./tmp/fakeReviews/fakeReviews${block}.csv`, string1, (err) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log(`write reviews file ${block} success!`);
+//     }
+//   });
 
-  await fs.writeFile(`./tmp/fakeReviewsPhotos/fakeReviewsPhotos${block}.csv`, string2, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(`write reviews photos file ${block} success!`);
-    }
-  });
-}
+//   await fs.writeFile(`./tmp/fakeReviewsPhotos/fakeReviewsPhotos${block}.csv`, string2, (err) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log(`write reviews photos file ${block} success!`);
+//       if (block === 9) {
+//         console.timeEnd('data creation time');
+//       }
+//     }
+//   });
+// }
 
 while (writeBlock <= 9) {
   writeBlock++;
@@ -59,6 +63,25 @@ while (writeBlock <= 9) {
       totalFakeReviewsPhotosString += eachFakeReviewsPhotosString;
     }
   }
-  // console.log('****\n' + totalFakeReviewsString.split(',').slice(10,20).join(','));
-  writeToFile(totalFakeReviewsString, totalFakeReviewsPhotosString, writeBlock);
+  // writeToFile(totalFakeReviewsString, totalFakeReviewsPhotosString, writeBlock);
+  fs.writeFileSync(`./tmp/fakeReviews/fakeReviews${writeBlock}.csv`, totalFakeReviewsString, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`write reviews file ${writeBlock} success!`);
+    }
+  });
+
+  fs.writeFileSync(`./tmp/fakeReviewsPhotos/fakeReviewsPhotos${writeBlock}.csv`, totalFakeReviewsPhotosString, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`write reviews photos file ${writeBlock} success!`);
+      if (block === 9) {
+        console.timeEnd('data creation time');
+      }
+    }
+  });
 };
+
+console.timeEnd('data creation time');
