@@ -34,12 +34,65 @@ CREATE TABLE IF NOT EXISTS metaReviews
   PRIMARY KEY (product_id)
 );
 
-COPY productReviews(review_id, product, rating, summary, recommend, response, body, date, reviewer_name, helpfulness)
-FROM 'C:\Users\Mark\Documents\GitHub\nate-fec\dbms_server\fakeReviews.csv'
-DELIMITER ','
-CSV HEADER;
+-- COPY productReviews(review_id, product, rating, summary, recommend, response, body, date, reviewer_name, helpfulness)
+-- FROM PROGRAM 'awk C:\Users\Mark\Documents\GitHub\nate-fec\dbms_server\tmp\fakeReviews*.csv'
+-- DELIMITER ','
+-- CSV HEADER;
 
-COPY productReviewsPhotos(id, url, review_id)
-FROM 'C:\Users\Mark\Documents\GitHub\nate-fec\dbms_server\fakeReviewsPhotos.csv'
-DELIMITER ','
-CSV HEADER;
+-- COPY productReviewsPhotos(id, url, review_id)
+-- FROM PROGRAM 'C:\Users\Mark\Documents\GitHub\nate-fec\dbms_server\tmp\fakeReviewsPhotos*.csv'
+-- DELIMITER ','
+-- CSV HEADER;
+
+--This FOR loop adds all the fakeReviews*.csv to the productReviews table.
+DO $$
+
+DECLARE file_path TEXT; -- Path where your CSV files are
+DECLARE fn_i TEXT; -- Variable to hold name of current CSV file being inserted
+DECLARE mytable TEXT; -- Variable to hold name of table to insert data into
+
+BEGIN
+
+    file_path := 'C:\Users\Mark\Documents\GitHub\nate-fec\dbms_server\tmp\fakeReviews\'; -- Declare the path to your CSV files. You probably need to put this in your PostgreSQL file path to avoid permission issues.
+    mytable := 'productReviews(review_id, product, rating, summary, recommend, response, body, date, reviewer_name, helpfulness)'; -- Declare table to insert data into. You can give columns too since it's just going into an execute statement.
+
+    CREATE TEMP TABLE files AS
+    SELECT file_path || pg_ls_dir AS fn -- get all of the files in the directory, prepending with file path
+    FROM pg_ls_dir(file_path);
+
+    LOOP
+        fn_i := (select fn from files limit 1); -- Pick the first file
+        raise notice 'fn: %', fn_i;
+        EXECUTE 'COPY ' || mytable || ' from ''' || fn_i || ''' with csv header';
+        DELETE FROM files WHERE fn = fn_i; -- Delete the file just inserted from the queue
+        EXIT  WHEN (SELECT COUNT(*) FROM files) = 0;
+     END LOOP;
+
+END $$;
+
+--This FOR loop adds all the fakeReviewsPhotos*.csv to the productReviewsPhotos table.
+DO $$
+
+DECLARE file_path TEXT; -- Path where your CSV files are
+DECLARE fn_i TEXT; -- Variable to hold name of current CSV file being inserted
+DECLARE mytable TEXT; -- Variable to hold name of table to insert data into
+
+BEGIN
+
+    file_path := 'C:\Users\Mark\Documents\GitHub\nate-fec\dbms_server\tmp\fakeReviewsPhotos\'; -- Declare the path to your CSV files. You probably need to put this in your PostgreSQL file path to avoid permission issues.
+    mytable := 'productReviewsPhotos(id, url, review_id)'; -- Declare table to insert data into. You can give columns too since it's just going into an execute statement.
+
+    CREATE TEMP TABLE files1 AS
+    SELECT file_path || pg_ls_dir AS fn -- get all of the files in the directory, prepending with file path
+    FROM pg_ls_dir(file_path);
+
+    LOOP
+        fn_i := (select fn from files1 limit 1); -- Pick the first file
+        raise notice 'fn: %', fn_i;
+        EXECUTE 'COPY ' || mytable || ' from ''' || fn_i || ''' with csv header';
+        DELETE FROM files1 WHERE fn = fn_i; -- Delete the file just inserted from the queue
+        EXIT  WHEN (SELECT COUNT(*) FROM files1) = 0;
+     END LOOP;
+
+END $$;
+
