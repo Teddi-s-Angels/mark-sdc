@@ -1,18 +1,85 @@
-const postgresql = require('postgres');
+const { Client } = require('pg');
 
-const connection = postgresql.createConnection({
+const connection = new Client({
   host: 'localhost',
-  user: 'root',
+  user: 'postgres',
   password: 'hackreactormarkdub91',
-  database: 'reviews'
+  database: 'reviews',
+  port: 5432
 })
 
 connection.connect();
 
 //GET / POST request queries
+//GET
+  //reviews, reviewsPhotos, meta
+//POST
+  //reviews, reviewsPhotos
+
+const getReviews = async function(productID, cb) {
+  let queryStr = `SELECT * FROM productReviews WHERE product = ${productID} LIMIT 5`;
+  connection.query(queryStr, (err, res) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, res);
+    }
+  })
+};
+
+//inner join attempt
+//SELECT * FROM productReviews INNER JOIN productReviewsPhotos ON productReviewsPhotos.review_id = productReviews.review_id WHERE product = 5 LIMIT 5;
+
+const getReviewsPhotos = async function(review_id, cb) {
+  // let queryStr = `SELECT * FROM productReviewsPhotos WHERE review_id = ${review_id}`;
+  // let queryStr = `SELECT picture_ID, id, url FROM productReviews INNER JOIN productReviewsPhotos ON productReviewsPhotos.review_id = productReviews.review_id WHERE productReviewsPhotos.review_id = ${review_id}`;
+  let queryStr = `SELECT url FROM productReviews INNER JOIN productReviewsPhotos ON productReviewsPhotos.review_id = productReviews.review_id WHERE productReviewsPhotos.review_id = ${review_id}`;
+  connection.query(queryStr, (err, res) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, res);
+    }
+  })
+};
+
+const getMeta = function(id, cb) {
+  let queryStr = '';
+  connection.query(queryStr, (err, res) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, res);
+    }
+  })
+};
+
+const insertReview = function(review, cb) {
+  let queryStr = '';
+  connection.query(queryStr, (err, res) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, res);
+    }
+  })
+};
+
+const insertReviewPhotos = function(reviewPhotos, cb) {
+  let queryStr = '';
+  connection.query(queryStr, (err, res) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, res);
+    }
+  })
+};
 
 module.exports = {
-  insertProductReviews,
-  insertProductReviewsPhotos,
-  insertMetaReviews
+  getReviews,
+  getReviewsPhotos,
+  getMeta,
+  insertReview,
+  insertReviewPhotos
 }
