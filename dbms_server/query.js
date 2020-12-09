@@ -17,7 +17,7 @@ connection.connect();
   //reviews, reviewsPhotos
 
 const getReviews = async function(productID, cb) {
-  let queryStr = `SELECT * FROM productReviews WHERE product = ${productID} LIMIT 5`;
+  let queryStr = `SELECT * FROM productReviews WHERE product = ${productID} LIMIT 10`;
   connection.query(queryStr, (err, res) => {
     if (err) {
       cb(err, null);
@@ -27,13 +27,10 @@ const getReviews = async function(productID, cb) {
   })
 };
 
-//inner join attempt
-//SELECT * FROM productReviews INNER JOIN productReviewsPhotos ON productReviewsPhotos.review_id = productReviews.review_id WHERE product = 5 LIMIT 5;
-
 const getReviewsPhotos = async function(review_id, cb) {
-  // let queryStr = `SELECT * FROM productReviewsPhotos WHERE review_id = ${review_id}`;
+  let queryStr = `SELECT * FROM productReviewsPhotos WHERE review_id = ${review_id}`;
   // let queryStr = `SELECT picture_ID, id, url FROM productReviews INNER JOIN productReviewsPhotos ON productReviewsPhotos.review_id = productReviews.review_id WHERE productReviewsPhotos.review_id = ${review_id}`;
-  let queryStr = `SELECT url FROM productReviews INNER JOIN productReviewsPhotos ON productReviewsPhotos.review_id = productReviews.review_id WHERE productReviewsPhotos.review_id = ${review_id}`;
+  // let queryStr = `SELECT url FROM productReviews INNER JOIN productReviewsPhotos ON productReviewsPhotos.review_id = productReviews.review_id WHERE productReviewsPhotos.review_id = ${review_id}`;
   connection.query(queryStr, (err, res) => {
     if (err) {
       cb(err, null);

@@ -14,29 +14,33 @@ app.get('/reviews/:product_id/list', (req, res) => {
       res.status(500).send('Error in GET request');
     } else {
       console.log('GET success!');
+      data.rows.forEach(row => {
+        row.photos = row.photos.split('-').join(',');
+      });
       let resObj = {
         product: `${req.params.product_id}`,
         page: `0`,
         count: `${data.rows.length}`,
         results: data.rows
       }
-      for (let i = 0; i < data.rows.length; i++) {
-        queryFunctions.getReviewsPhotos(data.rows[i].review_id, (err, picData) => {
-          if (err) {
-            console.log(err);
-            res.status(500).send('Error in GET photos request');
-          } else {
-            if (picData.rows) {
-              data.rows[i].photos = picData.rows;
-            } else {
-              data.rows[i].photos = [];
-            }
-            if (i === (data.rows.length - 1)) {
-              res.status(200).send(resObj);
-            }
-          }
-        })
-      }
+      res.status(200).send(resObj);
+      // for (let i = 0; i < data.rows.length; i++) {
+      //   queryFunctions.getReviewsPhotos(data.rows[i].review_id, (err, picData) => {
+      //     if (err) {
+      //       console.log(err);
+      //       res.status(500).send('Error in GET photos request');
+      //     } else {
+      //       if (picData.rows) {
+      //         data.rows[i].photos = picData.rows;
+      //       } else {
+      //         data.rows[i].photos = [];
+      //       }
+      //       if (i === (data.rows.length - 1)) {
+      //         res.status(200).send(resObj);
+      //       }
+      //     }
+      //   })
+      // }
     }
   })
 });

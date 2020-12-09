@@ -8,13 +8,13 @@ const faker = require('faker');
 
 let writeBlock = 0;
 let numOfReviews = 1000000;
-let maxReviewPhotosPerReview = 3;
+let maxReviewPhotosPerReview = 5;
 let numOfProducts = 1000;
 
 while (writeBlock <= 9) {
   writeBlock++;
 
-  let totalFakeReviewsString = 'review_id,product,rating,summary,recommend,response,body,date,reviewer_name,helpfulness\n';
+  let totalFakeReviewsString = 'review_id,product,rating,summary,recommend,response,body,date,reviewer_name,helpfulness,photos\n';
   let totalFakeReviewsPhotosString = 'id,url,review_id\n';
 
   for (let i = (1 + (writeBlock - 1) * numOfReviews); i <= (writeBlock * numOfReviews); i++) {
@@ -25,22 +25,39 @@ while (writeBlock <= 9) {
     let recommend = Math.floor(Math.random() * 2);
     let response = '';
     let body = faker.lorem.sentence();
-    let date = faker.date.between('2019-01-01', '2019-12-31') + 'T00:00:00.000Z';
+    let randMonth = JSON.stringify(Math.floor(Math.random() * 13));
+    if (randMonth.length === 1) {
+      randMonth = '0' + randMonth;
+    }
+    let randDay = JSON.stringify(Math.floor(Math.random() * 29));
+    if (randDay.length === 1) {
+      randDay = '0' + randDay;
+    }
+    let date = '2019-' + randMonth + '-' + randDay + 'T00:00:00.000Z';
     let reviewer_name = faker.name.findName();
     let helpfulness = Math.floor(Math.random() * 26);
+    let photos = [];
 
-    //creates review string
-    let eachFakeReviewsString = review_id + ',' + product + ',' + rating + ',' + summary + ',' + recommend + ',' + response + ',' + body + ',' + date + ',' + reviewer_name + ',' + helpfulness + '\n';
-    totalFakeReviewsString += eachFakeReviewsString;
+    for (let j = 0; j < Math.floor(Math.random() * (maxReviewPhotosPerReview + 1)); j++) {
+      let pic = {'id': j, 'url': faker.image.fashion()};
+      photos.push(pic);
 
-    //creates review photos string
-    for (let j = 0; j < Math.ceil(Math.random() * maxReviewPhotosPerReview); j++) {
-      let id = j;
-      let url = faker.image.fashion();
+      // let id = j;
+      // let url = faker.image.fashion();
 
-      let eachFakeReviewsPhotosString = id + ',' + url + ',' + review_id + '\n';
-      totalFakeReviewsPhotosString += eachFakeReviewsPhotosString;
+      // let eachFakeReviewsPhotosString = id + ',' + url + ',' + review_id + '\n';
+      // totalFakeReviewsPhotosString += eachFakeReviewsPhotosString;
     }
+    if (photos !== []) {
+      photos = JSON.stringify(photos);
+      photos = photos.split(',');
+      photos = photos.join('-');
+    } else {
+      photos = JSON.stringify(photos);
+    }
+    //creates review string
+    let eachFakeReviewsString = review_id + ',' + product + ',' + rating + ',' + summary + ',' + recommend + ',' + response + ',' + body + ',' + date + ',' + reviewer_name + ',' + helpfulness + ',' + photos + '\n';
+    totalFakeReviewsString += eachFakeReviewsString;
   }
   // writeToFile(totalFakeReviewsString, totalFakeReviewsPhotosString, writeBlock);
   fs.writeFileSync(`./tmp/fakeReviews/fakeReviews${writeBlock}.csv`, totalFakeReviewsString, (err) => {
@@ -48,19 +65,20 @@ while (writeBlock <= 9) {
       console.log(err);
     } else {
       console.log(`write reviews file ${writeBlock} success!`);
-    }
-  });
-
-  fs.writeFileSync(`./tmp/fakeReviewsPhotos/fakeReviewsPhotos${writeBlock}.csv`, totalFakeReviewsPhotosString, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(`write reviews photos file ${writeBlock} success!`);
       if (block === 9) {
         console.timeEnd('data creation time');
       }
     }
   });
-};
+}
+
+//   fs.writeFileSync(`./tmp/fakeReviewsPhotos/fakeReviewsPhotos${writeBlock}.csv`, totalFakeReviewsPhotosString, (err) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log(`write reviews photos file ${writeBlock} success!`);
+//     }
+//   });
+// };
 
 console.timeEnd('data creation time');
