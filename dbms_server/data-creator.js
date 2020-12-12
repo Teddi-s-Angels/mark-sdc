@@ -9,12 +9,12 @@ const faker = require('faker');
 let writeBlock = 0;
 let numOfReviews = 1000000;
 let maxReviewPhotosPerReview = 5;
-let numOfProducts = 1000;
+let numOfProducts = 100000;
 
 while (writeBlock <= 9) {
   writeBlock++;
 
-  let totalFakeReviewsString = 'review_id,product,rating,summary,recommend,response,body,date,reviewer_name,helpfulness,photos\n';
+  let totalFakeReviewsString = 'product,rating,summary,recommend,response,body,date,reviewer_name,helpfulness,photos\n';
   let totalFakeReviewsPhotosString = 'id,url,review_id\n';
 
   for (let i = (1 + (writeBlock - 1) * numOfReviews); i <= (writeBlock * numOfReviews); i++) {
@@ -35,7 +35,7 @@ while (writeBlock <= 9) {
     }
     let date = '2019-' + randMonth + '-' + randDay + 'T00:00:00.000Z';
     let reviewer_name = faker.name.findName();
-    let helpfulness = Math.floor(Math.random() * 26);
+    let helpfulness = Math.floor(Math.random() * 101);
     let photos = [];
 
     for (let j = 0; j < Math.floor(Math.random() * (maxReviewPhotosPerReview + 1)); j++) {
@@ -56,7 +56,7 @@ while (writeBlock <= 9) {
       photos = JSON.stringify(photos);
     }
     //creates review string
-    let eachFakeReviewsString = review_id + ',' + product + ',' + rating + ',' + summary + ',' + recommend + ',' + response + ',' + body + ',' + date + ',' + reviewer_name + ',' + helpfulness + ',' + photos + '\n';
+    let eachFakeReviewsString = product + ',' + rating + ',' + summary + ',' + recommend + ',' + response + ',' + body + ',' + date + ',' + reviewer_name + ',' + helpfulness + ',' + photos + '\n';
     totalFakeReviewsString += eachFakeReviewsString;
   }
   // writeToFile(totalFakeReviewsString, totalFakeReviewsPhotosString, writeBlock);

@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS productReviewsPhotos;
 DROP TABLE IF EXISTS productReviews;
 
 CREATE TABLE IF NOT EXISTS productReviews
-( review_id integer NOT NULL,
+( review_id SERIAL,
   product integer NOT NULL,
   rating integer,
   summary text,
@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS productReviews
   photos text,
   PRIMARY KEY (review_id)
 );
+
 
 -- CREATE TABLE IF NOT EXISTS productReviewsPhotos
 -- ( picture_ID SERIAL,
@@ -57,7 +58,7 @@ DECLARE mytable TEXT; -- Variable to hold name of table to insert data into
 BEGIN
 
     file_path := 'C:\Users\Mark\Documents\GitHub\nate-fec\dbms_server\tmp\fakeReviews\'; -- Declare the path to your CSV files. You probably need to put this in your PostgreSQL file path to avoid permission issues.
-    mytable := 'productReviews(review_id, product, rating, summary, recommend, response, body, date, reviewer_name, helpfulness, photos)'; -- Declare table to insert data into. You can give columns too since it's just going into an execute statement.
+    mytable := 'productReviews(product, rating, summary, recommend, response, body, date, reviewer_name, helpfulness, photos)'; -- Declare table to insert data into. You can give columns too since it's just going into an execute statement.
 
     CREATE TEMP TABLE files AS
     SELECT file_path || pg_ls_dir AS fn -- get all of the files in the directory, prepending with file path
@@ -98,4 +99,8 @@ END $$;
 --      END LOOP;
 
 -- END $$;
+
+CREATE INDEX idx_product_id ON productReviews(product);
+CREATE INDEX idx_date ON productReviews(date);
+CREATE INDEX idx_helpfulness ON productReviews(helpfulness);
 

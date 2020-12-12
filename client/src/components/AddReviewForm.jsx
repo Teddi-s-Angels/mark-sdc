@@ -28,7 +28,7 @@ class AddReviewForm extends React.Component {
       doRecommendError: false,
       summaryError: false,
       bodyError: false,
-      qualityError: false, 
+      qualityError: false,
       comfortError: false,
       sizeError: false,
       lengthError: false,
@@ -52,7 +52,7 @@ class AddReviewForm extends React.Component {
     let value = target.value;
     const name = target.name;
     const error = name + 'Error';
-    const validEmailRegex = 
+    const validEmailRegex =
      RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 
     if(name === 'doRecommend' || name === 'fit' || name === 'size' || name === 'width' || name === 'comfort' || name === 'quality' || name === 'length' || name === 'stars') {
@@ -233,6 +233,7 @@ class AddReviewForm extends React.Component {
     if(this.state.sentReview) {
       return
     } else {
+      console.log(JSON.stringify(body));
       Parse.submitReview(JSON.stringify(body), (err, result) => {
         if(err) {
           console.log(err);
@@ -264,8 +265,8 @@ class AddReviewForm extends React.Component {
     let photoFive;
     if(this.state.photos[0]) {
       photoOne = <Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photos[0]} />
-    } 
-    
+    }
+
     if(this.state.photos[1]) {
       photoTwo = <Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photos[1]} />
     }
@@ -277,7 +278,7 @@ class AddReviewForm extends React.Component {
     if(this.state.photos[3]) {
       photoFour = <Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photos[3]} />
     }
-    
+
     if(this.state.photos[4]) {
       photoFive = <Image thumbnail id='imageThumbnail' onClick={this.handlePhotoLightbox} src={this.state.photos[4]} />
     }
@@ -383,7 +384,7 @@ class AddReviewForm extends React.Component {
     if(this.state.starsError === true || this.state.doRecommendError === true || this.state.nicknameError === true || this.state.bodyError === true || this.state.qualityError === true || this.state.comfortError === true || this.state.sizeError === true || this.state.lengthError === true || this.state.widthError === true || this.state.fitError === true || this.state.emailError === true ) {
       requirementsHeader = <ul id='errorMessageHeader'>Correct the Following:</ul>
     }
-    
+
     if(this.state.starsError) {
       starsError = <li id='errorMessage'>Please fill in star rating</li>
     }
