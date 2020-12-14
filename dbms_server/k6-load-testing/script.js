@@ -4,10 +4,10 @@ import { check, sleep } from 'k6';
 export let options = {
   vus: 1000,
   duration: '1m',
-  rps: 100,
+  rps: 10,
   thresholds: {
     'failed requests': ['rate<0.1'],
-    http_req_duration: ['p(95)<2000'],
+    http_req_duration: ['p(99)<2000'],
   }
 }
 
