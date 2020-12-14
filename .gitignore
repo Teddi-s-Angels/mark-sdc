@@ -4,6 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 /dbms_server/tmp/
+/dbms_server/newrelic.js
 
 # User-specific files
 *.rsuser
