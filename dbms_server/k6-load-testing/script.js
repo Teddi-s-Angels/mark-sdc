@@ -2,9 +2,9 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 
 export let options = {
-  vus: 1000,
+  vus: 100,
   duration: '1m',
-  rps: 10,
+  rps: 1,
   thresholds: {
     'failed requests': ['rate<0.1'],
     http_req_duration: ['p(99)<2000'],
@@ -13,7 +13,7 @@ export let options = {
 
 export default function () {
   let product_id = Math.floor(Math.random() * 100001);
-  http.get(`http://localhost:3001/reviews/${product_id}/list?sort=newest`, {timeout:180000});
+  http.get(`http://localhost:3001/reviews/${product_id}/list?sort=newest`, {timeout:1800000});
   sleep(1);
 }
 

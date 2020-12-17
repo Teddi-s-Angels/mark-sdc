@@ -25,23 +25,6 @@ app.get('/reviews/:product_id/list', (req, res) => {
         results: data.rows
       }
       res.status(200).send(resObj);
-      // for (let i = 0; i < data.rows.length; i++) {
-      //   queryFunctions.getReviewsPhotos(data.rows[i].review_id, (err, picData) => {
-      //     if (err) {
-      //       console.log(err);
-      //       res.status(500).send('Error in GET photos request');
-      //     } else {
-      //       if (picData.rows) {
-      //         data.rows[i].photos = picData.rows;
-      //       } else {
-      //         data.rows[i].photos = [];
-      //       }
-      //       if (i === (data.rows.length - 1)) {
-      //         res.status(200).send(resObj);
-      //       }
-      //     }
-      //   })
-      // }
     }
   })
 });

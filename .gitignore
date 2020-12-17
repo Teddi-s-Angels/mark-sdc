@@ -5,6 +5,7 @@
 
 /dbms_server/tmp/
 /dbms_server/newrelic.js
+*.pem
 
 # User-specific files
 *.rsuser
